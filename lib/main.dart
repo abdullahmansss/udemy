@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:udemy_flutter/bmi_screen.dart';
-import 'package:udemy_flutter/counter_screen.dart';
-import 'package:udemy_flutter/login_screen.dart';
-import 'package:udemy_flutter/messenger_screen.dart';
-import 'package:udemy_flutter/users_screen.dart';
+import 'package:udemy_flutter/modules/bmi/bmi_screen.dart';
+import 'package:udemy_flutter/modules/counter/counter_screen.dart';
+import 'package:udemy_flutter/modules/login/login_screen.dart';
+import 'package:udemy_flutter/modules/messenger/messenger_screen.dart';
+import 'package:udemy_flutter/modules/users/users_screen.dart';
 
 void main()
 {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget
   {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BmiScreen(),
+      home: LoginScreen(),
     );
   }
 }

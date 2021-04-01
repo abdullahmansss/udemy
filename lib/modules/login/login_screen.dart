@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_flutter/shared/components/components.dart';
 
-class LoginScreen extends StatelessWidget {
+// reusable components
+
+// 1. timing
+// 2. refactor
+// 3. quality
+// 4. clean code
+
+class LoginScreen extends StatelessWidget
+{
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -69,21 +79,24 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 20.0,
                 ),
-                Container(
-                  width: double.infinity,
-                  color: Colors.blue,
-                  child: MaterialButton(
-                    onPressed: () {
-                      print(emailController.text);
-                      print(passwordController.text);
-                    },
-                    child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                defaultButton(
+                  text: 'login',
+                  function: ()
+                  {
+                    print(emailController.text);
+                    print(passwordController.text);
+                  },
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                defaultButton(
+                  text: 'ReGIster',
+                  function: ()
+                  {
+                    print(emailController.text);
+                    print(passwordController.text);
+                  },
                 ),
                 SizedBox(
                   height: 10.0,
