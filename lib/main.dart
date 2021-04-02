@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_flutter/layout/home_layout.dart';
 import 'package:udemy_flutter/modules/bmi/bmi_screen.dart';
 import 'package:udemy_flutter/modules/counter/counter_screen.dart';
 import 'package:udemy_flutter/modules/login/login_screen.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget
   {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomeLayout(),
     );
   }
 }
