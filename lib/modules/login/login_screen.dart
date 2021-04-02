@@ -8,11 +8,18 @@ import 'package:udemy_flutter/shared/components/components.dart';
 // 3. quality
 // 4. clean code
 
-class LoginScreen extends StatelessWidget
+class LoginScreen extends StatefulWidget
+{
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen>
 {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  bool isPassword = true;
 
   @override
   Widget build(BuildContext context)
@@ -61,8 +68,15 @@ class LoginScreen extends StatelessWidget
                     controller: passwordController,
                     label: 'Password',
                     prefix: Icons.lock,
-                    suffix: Icons.remove_red_eye,
-                    isPassword: true,
+                    suffix: isPassword ? Icons.visibility : Icons.visibility_off,
+                    isPassword: isPassword,
+                    suffixPressed: ()
+                    {
+                      setState(()
+                      {
+                        isPassword = !isPassword;
+                      });
+                    },
                     type: TextInputType.visiblePassword,
                     validate: (String value)
                     {

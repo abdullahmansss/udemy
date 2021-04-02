@@ -38,6 +38,7 @@ Widget defaultFormField({
   @required String label,
   @required IconData prefix,
   IconData suffix,
+  Function suffixPressed,
 }) => TextFormField(
   controller: controller,
   keyboardType: type,
@@ -50,8 +51,11 @@ Widget defaultFormField({
     prefixIcon: Icon(
       prefix,
     ),
-    suffixIcon: suffix != null ? Icon(
-      suffix,
+    suffixIcon: suffix != null ? IconButton(
+      onPressed: suffixPressed,
+      icon: Icon(
+        suffix,
+      ),
     ) : null,
     border: OutlineInputBorder(),
   ),
