@@ -9,10 +9,12 @@ import 'package:udemy_flutter/modules/login/login_screen.dart';
 import 'package:udemy_flutter/modules/messenger/messenger_screen.dart';
 import 'package:udemy_flutter/modules/users/users_screen.dart';
 import 'package:udemy_flutter/shared/bloc_observer.dart';
+import 'package:udemy_flutter/shared/network/remote/dio_helper.dart';
 
 void main()
 {
   Bloc.observer = MyBlocObserver();
+  DioHelper.init();
 
   runApp(MyApp());
 }
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           backwardsCompatibility: false,
@@ -51,13 +54,23 @@ class MyApp extends StatelessWidget
             color: Colors.black,
           ),
         ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.deepOrange,
+        ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.deepOrange,
           elevation: 20.0,
         ),
       ),
-      home: NewsLayout(),
+      darkTheme: ThemeData(
+        scaffoldBackgroundColor: Colors.black26,
+      ),
+      themeMode: ThemeMode.light,
+      home: Directionality(
+        textDirection: TextDirection.ltr,
+          child: NewsLayout(),
+      ),
     );
   }
 }
