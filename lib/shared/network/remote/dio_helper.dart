@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
-class DioHelper {
+class DioHelper
+{
   static Dio dio;
 
   static init() {
