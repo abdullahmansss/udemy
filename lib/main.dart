@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:udemy_flutter/layout/news_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/news_app/news_layout.dart';
 import 'package:udemy_flutter/layout/todo_app/todo_layout.dart';
 import 'package:udemy_flutter/modules/bmi/bmi_screen.dart';
@@ -16,8 +17,7 @@ import 'package:udemy_flutter/shared/cubit/states.dart';
 import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 import 'package:udemy_flutter/shared/network/remote/dio_helper.dart';
 
-void main() async
-{
+void main() async {
   // بيتأكد ان كل حاجه هنا في الميثود خلصت و بعدين يتفح الابلكيشن
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -35,8 +35,7 @@ void main() async
 
 // class MyApp
 
-class MyApp extends StatelessWidget
-{
+class MyApp extends StatelessWidget {
   // constructor
   // build
   final bool isDark;
@@ -44,12 +43,23 @@ class MyApp extends StatelessWidget
   MyApp(this.isDark);
 
   @override
-  Widget build(BuildContext context)
-  {
-    return BlocProvider(
-      create: (BuildContext context) => AppCubit()..changeAppMode(
-        fromShared: isDark,
-      ),
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers:
+      [
+        BlocProvider(
+          create: (context) => NewsCubit()
+            ..getBusiness()
+            ..getSports()
+            ..getScience(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => AppCubit()
+            ..changeAppMode(
+              fromShared: isDark,
+            ),
+        ),
+      ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -133,7 +143,8 @@ class MyApp extends StatelessWidget
                 ),
               ),
             ),
-            themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            themeMode:
+                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             home: NewsLayout(),
           );
         },
