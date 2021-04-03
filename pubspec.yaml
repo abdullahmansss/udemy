@@ -35,6 +35,7 @@ dependencies:
   flutter_bloc: ^7.0.0
   dio: ^4.0.0
   hexcolor: ^2.0.3
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,7 @@ import 'package:udemy_flutter/modules/archived_tasks/archived_tasks_screen.dart'
 import 'package:udemy_flutter/modules/done_tasks/done_tasks_screen.dart';
 import 'package:udemy_flutter/modules/new_tasks/new_tasks_screen.dart';
 import 'package:udemy_flutter/shared/cubit/states.dart';
+import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
@@ -56,8 +57,7 @@ class AppCubit extends Cubit<AppStates> {
           print('Error When Creating Table ${error.toString()}');
         });
       },
-      onOpen: (database)
-      {
+      onOpen: (database) {
         getDataFromDatabase(database);
         print('database opened');
       },
@@ -90,8 +90,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  void getDataFromDatabase(database)
-  {
+  void getDataFromDatabase(database) {
     newTasks = [];
     doneTasks = [];
     archivedTasks = [];
@@ -99,14 +98,13 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppGetDatabaseLoadingState());
 
     database.rawQuery('SELECT * FROM tasks').then((value) {
-
-      value.forEach((element)
-      {
-        if(element['status'] == 'new')
+      value.forEach((element) {
+        if (element['status'] == 'new')
           newTasks.add(element);
-        else if(element['status'] == 'done')
+        else if (element['status'] == 'done')
           doneTasks.add(element);
-        else archivedTasks.add(element);
+        else
+          archivedTasks.add(element);
       });
 
       emit(AppGetDatabaseState());
@@ -114,15 +112,13 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void updateData({
-  @required String status,
-  @required int id,
-}) async
-  {
+    @required String status,
+    @required int id,
+  }) async {
     database.rawUpdate(
       'UPDATE tasks SET status = ? WHERE id = ?',
       ['$status', id],
-    ).then((value)
-    {
+    ).then((value) {
       getDataFromDatabase(database);
       emit(AppUpdateDatabaseState());
     });
@@ -130,11 +126,8 @@ class AppCubit extends Cubit<AppStates> {
 
   void deleteData({
     @required int id,
-  }) async
-  {
-    database.rawDelete('DELETE FROM tasks WHERE id = ?', [id])
-        .then((value)
-    {
+  }) async {
+    database.rawDelete('DELETE FROM tasks WHERE id = ?', [id]).then((value) {
       getDataFromDatabase(database);
       emit(AppDeleteDatabaseState());
     });
@@ -155,9 +148,18 @@ class AppCubit extends Cubit<AppStates> {
 
   bool isDark = false;
 
-  void changeAppMode()
+  void changeAppMode({bool fromShared})
   {
-    isDark = !isDark;
-    emit(AppChangeModeState());
+    if (fromShared != null)
+    {
+      isDark = fromShared;
+      emit(AppChangeModeState());
+    } else
+      {
+      isDark = !isDark;
+      CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+        emit(AppChangeModeState());
+      });
+    }
   }
 }

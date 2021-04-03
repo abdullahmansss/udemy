@@ -13,14 +13,21 @@ import 'package:udemy_flutter/modules/users/users_screen.dart';
 import 'package:udemy_flutter/shared/bloc_observer.dart';
 import 'package:udemy_flutter/shared/cubit/cubit.dart';
 import 'package:udemy_flutter/shared/cubit/states.dart';
+import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 import 'package:udemy_flutter/shared/network/remote/dio_helper.dart';
 
-void main()
+void main() async
 {
+  // بيتأكد ان كل حاجه هنا في الميثود خلصت و بعدين يتفح الابلكيشن
+  WidgetsFlutterBinding.ensureInitialized();
+
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
+  await CacheHelper.init();
 
-  runApp(MyApp());
+  bool isDark = CacheHelper.getBoolean(key: 'isDark');
+
+  runApp(MyApp(isDark));
 }
 
 // Stateless
@@ -32,12 +39,17 @@ class MyApp extends StatelessWidget
 {
   // constructor
   // build
+  final bool isDark;
+
+  MyApp(this.isDark);
 
   @override
   Widget build(BuildContext context)
   {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit(),
+      create: (BuildContext context) => AppCubit()..changeAppMode(
+        fromShared: isDark,
+      ),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
