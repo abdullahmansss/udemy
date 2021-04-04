@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:udemy_flutter/modules/shop_app/login/shop_login_screen.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
+import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 import 'package:udemy_flutter/shared/styles/colors.dart';
 
 class BoardingModel {
@@ -24,8 +25,7 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   var boardController = PageController();
 
-  List<BoardingModel> boarding =
-  [
+  List<BoardingModel> boarding = [
     BoardingModel(
       image: 'assets/images/onboard_1.jpg',
       title: 'On Board 1 Title',
@@ -45,18 +45,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   bool isLast = false;
 
+  void submit() {
+    CacheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value)
+    {
+      if (value) {
+        navigateAndFinish(
+          context,
+          ShopLoginScreen(),
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           defaultTextButton(
-            function: () {
-              navigateAndFinish(
-                context,
-                ShopLoginScreen(),
-              );
-            },
+            function: submit,
             text: 'skip',
           ),
         ],
@@ -105,11 +115,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 Spacer(),
                 FloatingActionButton(
                   onPressed: () {
-                    if (isLast) {
-                      navigateAndFinish(
-                        context,
-                        ShopLoginScreen(),
-                      );
+                    if (isLast)
+                    {
+                      submit();
                     } else {
                       boardController.nextPage(
                         duration: Duration(

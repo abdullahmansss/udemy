@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:udemy_flutter/layout/news_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/news_app/news_layout.dart';
+import 'package:udemy_flutter/layout/shop_app/shop_layout.dart';
+import 'package:udemy_flutter/modules/shop_app/login/shop_login_screen.dart';
 import 'package:udemy_flutter/modules/shop_app/on_boarding/on_boarding_screen.dart';
 import 'package:udemy_flutter/shared/bloc_observer.dart';
 import 'package:udemy_flutter/shared/cubit/cubit.dart';
@@ -21,9 +23,26 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
 
-  bool isDark = CacheHelper.getBoolean(key: 'isDark');
+  bool isDark = CacheHelper.getData(key: 'isDark');
 
-  runApp(MyApp(isDark));
+  Widget widget;
+
+  bool onBoarding = CacheHelper.getData(key: 'onBoarding');
+  String token = CacheHelper.getData(key: 'token');
+
+  if(onBoarding != null)
+  {
+    if(token != null) widget = ShopLayout();
+    else widget = ShopLoginScreen();
+  } else
+    {
+      widget = OnBoardingScreen();
+    }
+
+  runApp(MyApp(
+    isDark: isDark,
+    startWidget: widget,
+  ));
 }
 
 // Stateless
@@ -31,18 +50,22 @@ void main() async {
 
 // class MyApp
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget
+{
   // constructor
   // build
   final bool isDark;
+  final Widget startWidget;
 
-  MyApp(this.isDark);
+  MyApp({
+    this.isDark,
+    this.startWidget,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers:
-      [
+      providers: [
         BlocProvider(
           create: (context) => NewsCubit()
             ..getBusiness()
@@ -58,15 +81,14 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
-        builder: (context, state)
-        {
+        builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: OnBoardingScreen(),
+            home: startWidget,
           );
         },
       ),

@@ -1,13 +1,15 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:udemy_flutter/layout/shop_app/shop_layout.dart';
 import 'package:udemy_flutter/modules/shop_app/login/cubit/cubit.dart';
 import 'package:udemy_flutter/modules/shop_app/login/cubit/states.dart';
 import 'package:udemy_flutter/modules/shop_app/register/shop_register_screen.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
+import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 
-class ShopLoginScreen extends StatelessWidget
-{
+class ShopLoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -18,7 +20,31 @@ class ShopLoginScreen extends StatelessWidget
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ShopLoginSuccessState) {
+            if (state.loginModel.status) {
+              print(state.loginModel.message);
+              print(state.loginModel.data.token);
+
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.loginModel.data.token,
+              ).then((value) {
+                navigateAndFinish(
+                  context,
+                  ShopLayout(),
+                );
+              });
+            } else {
+              print(state.loginModel.message);
+
+              showToast(
+                text: state.loginModel.message,
+                state: ToastStates.ERROR,
+              );
+            }
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
@@ -64,10 +90,8 @@ class ShopLoginScreen extends StatelessWidget
                           controller: passwordController,
                           type: TextInputType.visiblePassword,
                           suffix: ShopLoginCubit.get(context).suffix,
-                          onSubmit: (value)
-                          {
-                            if(formKey.currentState.validate())
-                            {
+                          onSubmit: (value) {
+                            if (formKey.currentState.validate()) {
                               ShopLoginCubit.get(context).userLogin(
                                 email: emailController.text,
                                 password: passwordController.text,
@@ -75,9 +99,9 @@ class ShopLoginScreen extends StatelessWidget
                             }
                           },
                           isPassword: ShopLoginCubit.get(context).isPassword,
-                          suffixPressed: ()
-                          {
-                            ShopLoginCubit.get(context).changePasswordVisibility();
+                          suffixPressed: () {
+                            ShopLoginCubit.get(context)
+                                .changePasswordVisibility();
                           },
                           validate: (String value) {
                             if (value.isEmpty) {
@@ -93,10 +117,8 @@ class ShopLoginScreen extends StatelessWidget
                         ConditionalBuilder(
                           condition: state is! ShopLoginLoadingState,
                           builder: (context) => defaultButton(
-                            function: ()
-                            {
-                              if(formKey.currentState.validate())
-                              {
+                            function: () {
+                              if (formKey.currentState.validate()) {
                                 ShopLoginCubit.get(context).userLogin(
                                   email: emailController.text,
                                   password: passwordController.text,
