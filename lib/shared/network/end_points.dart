@@ -1,0 +1,1 @@
+const LOGIN = 'login';
