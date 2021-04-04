@@ -1,6 +1,6 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:udemy_flutter/modules/web_view/web_view_screen.dart';
+import 'package:udemy_flutter/modules/news_app/web_view/web_view_screen.dart';
 import 'package:udemy_flutter/shared/cubit/cubit.dart';
 
 Widget defaultButton({
@@ -72,8 +72,8 @@ Widget defaultFormField({
     );
 
 Widget buildTaskItem(Map model, context) => Dismissible(
-  key: Key(model['id'].toString()),
-  child: Padding(
+      key: Key(model['id'].toString()),
+      child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Row(
           children: [
@@ -111,8 +111,7 @@ Widget buildTaskItem(Map model, context) => Dismissible(
               width: 20.0,
             ),
             IconButton(
-              onPressed: ()
-              {
+              onPressed: () {
                 AppCubit.get(context).updateData(
                   status: 'done',
                   id: model['id'],
@@ -138,128 +137,148 @@ Widget buildTaskItem(Map model, context) => Dismissible(
           ],
         ),
       ),
-  onDismissed: (direction)
-  {
-    AppCubit.get(context).deleteData(id: model['id'],);
-  },
-);
+      onDismissed: (direction) {
+        AppCubit.get(context).deleteData(
+          id: model['id'],
+        );
+      },
+    );
 
 Widget tasksBuilder({
   @required List<Map> tasks,
-}) => ConditionalBuilder(
-  condition: tasks.length > 0,
-  builder: (context) => ListView.separated(
-    itemBuilder: (context, index)
-    {
-      return buildTaskItem(tasks[index], context);
-    },
-    separatorBuilder: (context, index) => myDivider(),
-    itemCount: tasks.length,
-  ),
-  fallback: (context) => Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.menu,
-          size: 100.0,
-          color: Colors.grey,
+}) =>
+    ConditionalBuilder(
+      condition: tasks.length > 0,
+      builder: (context) => ListView.separated(
+        itemBuilder: (context, index) {
+          return buildTaskItem(tasks[index], context);
+        },
+        separatorBuilder: (context, index) => myDivider(),
+        itemCount: tasks.length,
+      ),
+      fallback: (context) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.menu,
+              size: 100.0,
+              color: Colors.grey,
+            ),
+            Text(
+              'No Tasks Yet, Please Add Some Tasks',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+          ],
         ),
-        Text(
-          'No Tasks Yet, Please Add Some Tasks',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
-          ),
-        ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
 Widget myDivider() => Padding(
-  padding: const EdgeInsetsDirectional.only(
-    start: 20.0,
-  ),
-  child: Container(
-    width: double.infinity,
-    height: 1.0,
-    color: Colors.grey[300],
-  ),
-);
+      padding: const EdgeInsetsDirectional.only(
+        start: 20.0,
+      ),
+      child: Container(
+        width: double.infinity,
+        height: 1.0,
+        color: Colors.grey[300],
+      ),
+    );
 
 Widget buildArticleItem(article, context) => InkWell(
-  onTap: (){
-    navigateTo(context, WebViewScreen(article['url']),);
-  },
-  child:   Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Row(
-      children:
-      [
-        Container(
-          width: 120.0,
-          height: 120.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0,),
-            image: DecorationImage(
-              image: NetworkImage('${article['urlToImage']}'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 20.0,
-        ),
-        Expanded(
-          child: Container(
-            height: 120.0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children:
-              [
-                Expanded(
-                  child: Text(
-                    '${article['title']}',
-                    style: Theme.of(context).textTheme.bodyText1,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+      onTap: () {
+        navigateTo(
+          context,
+          WebViewScreen(article['url']),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Container(
+              width: 120.0,
+              height: 120.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  10.0,
                 ),
-                Text(
-                  '${article['publishedAt']}',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
+                image: DecorationImage(
+                  image: NetworkImage('${article['urlToImage']}'),
+                  fit: BoxFit.cover,
                 ),
-              ],
+              ),
             ),
-          ),
+            SizedBox(
+              width: 20.0,
+            ),
+            Expanded(
+              child: Container(
+                height: 120.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${article['title']}',
+                        style: Theme.of(context).textTheme.bodyText1,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      '${article['publishedAt']}',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 15.0,
+            ),
+          ],
         ),
-        SizedBox(
-          width: 15.0,
-        ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
 Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
-  condition: list.length > 0,
-  builder: (context) =>
-      ListView.separated(
+      condition: list.length > 0,
+      builder: (context) => ListView.separated(
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) => buildArticleItem(list[index], context),
         separatorBuilder: (context, index) => myDivider(),
-        itemCount: 10,),
-  fallback: (context) => isSearch ? Container() : Center(child: CircularProgressIndicator()),
-);
+        itemCount: 10,
+      ),
+      fallback: (context) =>
+          isSearch ? Container() : Center(child: CircularProgressIndicator()),
+    );
 
 void navigateTo(context, widget) => Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
+    );
+
+void navigateAndFinish(
   context,
-  MaterialPageRoute(
-    builder: (context) => widget,
-  ),
-);
+  widget,
+) =>
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
+      (route)
+      {
+        return false;
+      },
+    );

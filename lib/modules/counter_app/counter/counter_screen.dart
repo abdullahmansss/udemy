@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:udemy_flutter/modules/counter/cubit/cubit.dart';
-import 'package:udemy_flutter/modules/counter/cubit/states.dart';
+import 'package:udemy_flutter/modules/counter_app/counter/cubit/cubit.dart';
+import 'package:udemy_flutter/modules/counter_app/counter/cubit/states.dart';
 
 // state less contain one class provide widget
 

@@ -37,6 +37,7 @@ dependencies:
   hexcolor: ^2.0.3
   shared_preferences: ^2.0.5
   webview_flutter: ^2.0.3
+  smooth_page_indicator: ^0.2.0
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,12 @@ flutter:
   assets:
     - assets/images/
 
+  fonts:
+    - family: Jannah
+      fonts:
+        - asset: assets/fonts/jannah.ttf
+          weight: 700
+
   # To add assets to your application, add an assets section, like this:
 
 
@@ -70,12 +77,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
