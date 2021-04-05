@@ -39,6 +39,7 @@ dependencies:
   webview_flutter: ^2.0.3
   smooth_page_indicator: ^0.2.0
   fluttertoast: ^8.0.3
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:
