@@ -15,14 +15,14 @@ class ProductsScreen extends StatelessWidget
       builder: (context, state) {
         return ConditionalBuilder(
           condition: ShopCubit.get(context).homeModel != null,
-          builder: (context) => productsBuilder(ShopCubit.get(context).homeModel),
+          builder: (context) => builderWidget(ShopCubit.get(context).homeModel),
           fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
 
-  Widget productsBuilder(HomeModel model) => Column(
+  Widget builderWidget(HomeModel model) => Column(
         children:
         [
           CarouselSlider(
