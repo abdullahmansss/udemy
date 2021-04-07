@@ -14,7 +14,7 @@ class ProductsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: state is! ShopLoadingHomeDataState,
+          condition: ShopCubit.get(context).homeModel != null,
           builder: (context) => builderWidget(ShopCubit.get(context).homeModel),
           fallback: (context) => Center(
             child: CircularProgressIndicator(),
