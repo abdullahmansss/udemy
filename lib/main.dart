@@ -67,7 +67,8 @@ class MyApp extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
+      providers:
+      [
         BlocProvider(
           create: (context) => NewsCubit()
             ..getBusiness()
