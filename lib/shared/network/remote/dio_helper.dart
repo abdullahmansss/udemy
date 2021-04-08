@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 class DioHelper {
   static Dio dio;
 
-  static init() {
+  static init()
+  {
     dio = Dio(
       BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
@@ -29,14 +30,14 @@ class DioHelper {
 
     return await dio.get(
       url,
-      queryParameters: query??null,
+      queryParameters: query,
     );
   }
 
   static Future<Response> postData({
     @required String url,
-    Map<String, dynamic> query,
     @required Map<String, dynamic> data,
+    Map<String, dynamic> query,
     String lang = 'en',
     String token,
   }) async
