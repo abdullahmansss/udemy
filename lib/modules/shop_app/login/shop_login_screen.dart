@@ -7,29 +7,36 @@ import 'package:udemy_flutter/modules/shop_app/login/cubit/cubit.dart';
 import 'package:udemy_flutter/modules/shop_app/login/cubit/states.dart';
 import 'package:udemy_flutter/modules/shop_app/register/shop_register_screen.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
+import 'package:udemy_flutter/shared/components/constants.dart';
 import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 
-class ShopLoginScreen extends StatelessWidget {
+class ShopLoginScreen extends StatelessWidget
+{
   var formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
-
+  Widget build(BuildContext context)
+  {
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {
-          if (state is ShopLoginSuccessState) {
-            if (state.loginModel.status) {
+          if (state is ShopLoginSuccessState)
+          {
+            if (state.loginModel.status)
+            {
               print(state.loginModel.message);
               print(state.loginModel.data.token);
 
               CacheHelper.saveData(
                 key: 'token',
                 value: state.loginModel.data.token,
-              ).then((value) {
+              ).then((value)
+              {
+                token = state.loginModel.data.token;
+
                 navigateAndFinish(
                   context,
                   ShopLayout(),
