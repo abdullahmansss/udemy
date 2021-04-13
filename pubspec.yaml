@@ -41,6 +41,11 @@ dependencies:
   fluttertoast: ^8.0.3
   carousel_slider: ^3.0.0
 
+  #firebase
+  firebase_core: ^1.0.3
+  firebase_auth: ^1.0.3
+  cloud_firestore: ^1.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

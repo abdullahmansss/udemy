@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +8,11 @@ import 'package:udemy_flutter/layout/news_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/news_app/news_layout.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/shop_app/shop_layout.dart';
+import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
+import 'package:udemy_flutter/layout/social_app/social_layout.dart';
 import 'package:udemy_flutter/modules/shop_app/login/shop_login_screen.dart';
 import 'package:udemy_flutter/modules/shop_app/on_boarding/on_boarding_screen.dart';
+import 'package:udemy_flutter/modules/social_app/social_login/social_login_screen.dart';
 import 'package:udemy_flutter/shared/bloc_observer.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
 import 'package:udemy_flutter/shared/cubit/cubit.dart';
@@ -21,6 +25,8 @@ void main() async {
   // بيتأكد ان كل حاجه هنا في الميثود خلصت و بعدين يتفح الابلكيشن
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp();
+
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
@@ -29,17 +35,26 @@ void main() async {
 
   Widget widget;
 
-  bool onBoarding = CacheHelper.getData(key: 'onBoarding');
-  token = CacheHelper.getData(key: 'token');
-  print(token);
+  //bool onBoarding = CacheHelper.getData(key: 'onBoarding');
+  //token = CacheHelper.getData(key: 'token');
 
-  if(onBoarding != null)
+  uId = CacheHelper.getData(key: 'uId');
+
+  // if(onBoarding != null)
+  // {
+  //   if(token != null) widget = ShopLayout();
+  //   else widget = ShopLoginScreen();
+  // } else
+  //   {
+  //     widget = OnBoardingScreen();
+  //   }
+
+  if(uId != null)
   {
-    if(token != null) widget = ShopLayout();
-    else widget = ShopLoginScreen();
+    widget = SocialLayout();
   } else
     {
-      widget = OnBoardingScreen();
+      widget = SocialLoginScreen();
     }
 
   runApp(MyApp(
@@ -66,7 +81,8 @@ class MyApp extends StatelessWidget
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -83,6 +99,9 @@ class MyApp extends StatelessWidget
         ),
         BlocProvider(
           create: (BuildContext context) => ShopCubit()..getHomeData()..getCategories()..getFavorites()..getUserData(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => SocialCubit()..getUserData(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
@@ -101,3 +120,5 @@ class MyApp extends StatelessWidget
     );
   }
 }
+
+// ./gradlew signingReport
