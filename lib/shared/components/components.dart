@@ -5,6 +5,7 @@ import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
 import 'package:udemy_flutter/modules/news_app/web_view/web_view_screen.dart';
 import 'package:udemy_flutter/shared/cubit/cubit.dart';
 import 'package:udemy_flutter/shared/styles/colors.dart';
+import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -84,6 +85,27 @@ Widget defaultFormField({
         border: OutlineInputBorder(),
       ),
     );
+
+Widget defaultAppBar({
+  @required BuildContext context,
+  String title,
+  List<Widget> actions,
+}) => AppBar(
+  leading: IconButton(
+    onPressed: ()
+    {
+      Navigator.pop(context);
+    },
+    icon: Icon(
+      IconBroken.Arrow___Left_2,
+    ),
+  ),
+  titleSpacing: 5.0,
+  title: Text(
+    title,
+  ),
+  actions: actions,
+);
 
 Widget buildTaskItem(Map model, context) => Dismissible(
       key: Key(model['id'].toString()),
