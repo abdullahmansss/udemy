@@ -18,7 +18,7 @@ class FeedsScreen extends StatelessWidget
       builder: (context, state)
       {
         return ConditionalBuilder(
-          condition: SocialCubit.get(context).posts.length > 0,
+          condition: SocialCubit.get(context).posts.length > 0 && SocialCubit.get(context).userModel != null,
           builder: (context) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
@@ -56,7 +56,7 @@ class FeedsScreen extends StatelessWidget
                 ListView.separated(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context),
+                  itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context, index),
                   separatorBuilder: (context, index) => SizedBox(
                     height: 8.0,
                   ),
@@ -74,7 +74,7 @@ class FeedsScreen extends StatelessWidget
     );
   }
 
-  Widget buildPostItem(PostModel model, context) => Card(
+  Widget buildPostItem(PostModel model, context, index) => Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 5.0,
         margin: EdgeInsets.symmetric(
@@ -250,7 +250,7 @@ class FeedsScreen extends StatelessWidget
                                 width: 5.0,
                               ),
                               Text(
-                                '0',
+                                '${SocialCubit.get(context).likes[index]}',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
@@ -341,7 +341,10 @@ class FeedsScreen extends StatelessWidget
                         ),
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () 
+                    {
+                      SocialCubit.get(context).likePost(SocialCubit.get(context).postsId[index]);
+                    },
                   ),
                 ],
               ),
