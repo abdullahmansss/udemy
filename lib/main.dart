@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget
           create: (BuildContext context) => ShopCubit()..getHomeData()..getCategories()..getFavorites()..getUserData(),
         ),
         BlocProvider(
-          create: (BuildContext context) => SocialCubit()..getUserData()..getPosts()..getUsers(),
+          create: (BuildContext context) => SocialCubit()..getUserData()..getPosts(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            themeMode: ThemeMode.light,
             home: startWidget,
           );
         },

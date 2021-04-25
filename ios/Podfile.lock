@@ -230,12 +230,19 @@ PODS:
   - Firebase/Firestore (7.3.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 7.3.0)
+  - Firebase/Storage (7.3.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 7.3.0)
   - firebase_auth (1.0.3):
     - Firebase/Auth (= 7.3.0)
     - firebase_core
     - Flutter
   - firebase_core (1.0.3):
     - Firebase/CoreOnly (= 7.3.0)
+    - Flutter
+  - firebase_storage (8.0.3):
+    - Firebase/Storage (= 7.3.0)
+    - firebase_core
     - Flutter
   - FirebaseAuth (7.3.0):
     - FirebaseCore (~> 7.0)
@@ -263,6 +270,9 @@ PODS:
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 2.30906.0)
+  - FirebaseStorage (7.3.0):
+    - FirebaseCore (~> 7.0)
+    - GTMSessionFetcher/Core (~> 1.4)
   - Flutter (1.0.0)
   - fluttertoast (0.0.2):
     - Flutter
@@ -314,6 +324,8 @@ PODS:
   - GTMSessionFetcher/Core (1.5.0)
   - hexcolor (0.0.1):
     - Flutter
+  - image_picker (0.0.1):
+    - Flutter
   - leveldb-library (1.22)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
@@ -334,9 +346,11 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - hexcolor (from `.symlinks/plugins/hexcolor/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
@@ -350,6 +364,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseFirestore
+    - FirebaseStorage
     - FMDB
     - GoogleDataTransport
     - GoogleUtilities
@@ -368,12 +383,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_storage:
+    :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   hexcolor:
     :path: ".symlinks/plugins/hexcolor/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   sqflite:
@@ -388,10 +407,12 @@ SPEC CHECKSUMS:
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   firebase_auth: c2c27e1081671b02f90981e70dad54722198491f
   firebase_core: b5d81dfd4fb2d6f700e67de34d9a633ae325c4e9
+  firebase_storage: 2ce2146c1fa764e68330e6998fa386522c95d199
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
   FirebaseCoreDiagnostics: d50e11039e5984d92c8a512be2395f13df747350
   FirebaseFirestore: 1906bf163afdb7c432d2e3b5c40ceb9dd2df5820
+  FirebaseStorage: 5002b1895bfe74a5ce92ad54f966e6162d0da2e5
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -401,6 +422,7 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   hexcolor: fdfb9c4258ad96e949c2dbcdf790a62194b8aa89
+  image_picker: 50e7c7ff960e5f58faa4d1f4af84a771c671bc4a
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
@@ -409,6 +431,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   webview_flutter: 9f491a9b5a66f2573946a389b2677987b0ff8c0b
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
 
 COCOAPODS: 1.10.1
