@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
@@ -7,15 +8,12 @@ import 'package:udemy_flutter/modules/social_app/new_post/new_post_screen.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
-class SettingsScreen extends StatelessWidget
-{
+class SettingsScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
-      builder: (context, state)
-      {
+      builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel;
 
         return Padding(
@@ -167,11 +165,39 @@ class SettingsScreen extends StatelessWidget
                   ),
                   OutlinedButton(
                     onPressed: () {
-                      navigateTo(context, EditProfileScreen(),);
+                      navigateTo(
+                        context,
+                        EditProfileScreen(),
+                      );
                     },
                     child: Icon(
                       IconBroken.Edit,
                       size: 16.0,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  OutlinedButton(
+                    onPressed: ()
+                    {
+                      FirebaseMessaging.instance.subscribeToTopic('announcements');
+                    },
+                    child: Text(
+                      'subscribe',
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  OutlinedButton(
+                    onPressed: ()
+                    {
+                      FirebaseMessaging.instance.unsubscribeFromTopic('announcements');
+                    },
+                    child: Text(
+                      'unsubscribe',
                     ),
                   ),
                 ],
