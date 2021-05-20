@@ -16,7 +16,8 @@ import 'package:udemy_flutter/modules/social_app/users/users_screen.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-class SocialCubit extends Cubit<SocialStates> {
+class SocialCubit extends Cubit<SocialStates>
+{
   SocialCubit() : super(SocialInitialState());
 
   static SocialCubit get(context) => BlocProvider.of(context);
