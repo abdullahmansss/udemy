@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:udemy_flutter/layout/news_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/news_app/news_layout.dart';
 import 'package:udemy_flutter/layout/todo_app/todo_layout.dart';
@@ -20,6 +24,15 @@ import 'package:udemy_flutter/shared/network/remote/dio_helper.dart';
 void main() async {
   // بيتأكد ان كل حاجه هنا في الميثود خلصت و بعدين يتفح الابلكيشن
   WidgetsFlutterBinding.ensureInitialized();
+
+  // set minimum width and height on app
+  //if (Platform.isMacOS)
+  //   await DesktopWindow.setMinWindowSize(
+  //     Size(
+  //       350.0,
+  //       650.0,
+  //     ),
+  //   );
 
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
@@ -45,8 +58,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers:
-      [
+      providers: [
         BlocProvider(
           create: (context) => NewsCubit()
             ..getBusiness()

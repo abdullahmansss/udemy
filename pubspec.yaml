@@ -37,6 +37,8 @@ dependencies:
   hexcolor: ^2.0.3
   shared_preferences: ^2.0.5
   webview_flutter: ^2.0.3
+  desktop_window: ^0.4.0
+  responsive_builder: ^0.4.1
 
 dev_dependencies:
   flutter_test:
