@@ -36,32 +36,32 @@ void main() async
   // بيتأكد ان كل حاجه هنا في الميثود خلصت و بعدين يتفح الابلكيشن
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp();
-  // var token = await FirebaseMessaging.instance.getToken();
-  //
-  // print(token);
-  //
-  //
-  // // foreground fcm
-  // FirebaseMessaging.onMessage.listen((event)
-  // {
-  //   print('on message');
-  //   print(event.data.toString());
-  //
-  //   showToast(text: 'on message', state: ToastStates.SUCCESS,);
-  // });
-  //
-  // // when click on notification to open app
-  // FirebaseMessaging.onMessageOpenedApp.listen((event)
-  // {
-  //   print('on message opened app');
-  //   print(event.data.toString());
-  //
-  //   showToast(text: 'on message opened app', state: ToastStates.SUCCESS,);
-  // });
-  //
-  // // background fcm
-  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp();
+  var token = await FirebaseMessaging.instance.getToken();
+
+  print(token);
+
+
+  // foreground fcm
+  FirebaseMessaging.onMessage.listen((event)
+  {
+    print('on message');
+    print(event.data.toString());
+
+    showToast(text: 'on message', state: ToastStates.SUCCESS,);
+  });
+
+  // when click on notification to open app
+  FirebaseMessaging.onMessageOpenedApp.listen((event)
+  {
+    print('on message opened app');
+    print(event.data.toString());
+fcm topic
+    showToast(text: 'on message opened app', state: ToastStates.SUCCESS,);
+  });
+
+  // background fcm
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
@@ -148,7 +148,7 @@ class MyApp extends StatelessWidget
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: ThemeMode.light,
-            home: NewsLayout(),
+            home: SocialLayout(),
           );
         },
       ),
