@@ -56,7 +56,6 @@ void main() async
   {
     print('on message opened app');
     print(event.data.toString());
-fcm topic
     showToast(text: 'on message opened app', state: ToastStates.SUCCESS,);
   });
 
