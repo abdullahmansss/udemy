@@ -6,6 +6,9 @@ void main()
   runApp(MyApp());
 }
 
+void runApp(MyApp myApp) {
+}
+
 // Stateless
 // Stateful
 
