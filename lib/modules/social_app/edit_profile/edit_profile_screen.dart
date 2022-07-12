@@ -18,13 +18,13 @@ class EditProfileScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var userModel = SocialCubit.get(context).userModel;
+        var userModel = SocialCubit.get(context).userModel!;
         var profileImage = SocialCubit.get(context).profileImage;
         var coverImage = SocialCubit.get(context).coverImage;
 
-        nameController.text = userModel.name;
-        phoneController.text = userModel.phone;
-        bioController.text = userModel.bio;
+        nameController.text = userModel.name!;
+        phoneController.text = userModel.phone!;
+        bioController.text = userModel.bio!;
 
         return Scaffold(
           appBar: defaultAppBar(
@@ -44,7 +44,7 @@ class EditProfileScreen extends StatelessWidget {
                 width: 15.0,
               ),
             ],
-          ),
+          ) as PreferredSizeWidget?,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -78,11 +78,11 @@ class EditProfileScreen extends StatelessWidget {
                                     ),
                                   ),
                                   image: DecorationImage(
-                                    image: coverImage == null
+                                    image: (coverImage == null
                                         ? NetworkImage(
                                             '${userModel.cover}',
                                           )
-                                        : FileImage(coverImage),
+                                        : FileImage(coverImage)) as ImageProvider<Object>,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -112,11 +112,11 @@ class EditProfileScreen extends StatelessWidget {
                                   Theme.of(context).scaffoldBackgroundColor,
                               child: CircleAvatar(
                                 radius: 60.0,
-                                backgroundImage: profileImage == null
+                                backgroundImage: (profileImage == null
                                     ? NetworkImage(
                                         '${userModel.image}',
                                       )
-                                    : FileImage(profileImage),
+                                    : FileImage(profileImage)) as ImageProvider<Object>?,
                               ),
                             ),
                             IconButton(

@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
@@ -45,7 +45,7 @@ class FeedsScreen extends StatelessWidget
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           'communicate with friends',
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
                             color: Colors.white,
                           ),
                         ),
@@ -120,7 +120,7 @@ class FeedsScreen extends StatelessWidget
                         ),
                         Text(
                           '${model.dateTime}',
-                          style: Theme.of(context).textTheme.caption.copyWith(
+                          style: Theme.of(context).textTheme.caption!.copyWith(
                                 height: 1.4,
                               ),
                         ),
@@ -308,7 +308,7 @@ class FeedsScreen extends StatelessWidget
                           CircleAvatar(
                             radius: 18.0,
                             backgroundImage: NetworkImage(
-                              '${SocialCubit.get(context).userModel.image}',
+                              '${SocialCubit.get(context).userModel!.image}',
                             ),
                           ),
                           SizedBox(
@@ -317,7 +317,7 @@ class FeedsScreen extends StatelessWidget
                           Text(
                             'write a comment ...',
                             style:
-                                Theme.of(context).textTheme.caption.copyWith(),
+                                Theme.of(context).textTheme.caption!.copyWith(),
                           ),
                         ],
                       ),

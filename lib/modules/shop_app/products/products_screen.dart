@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
@@ -15,9 +15,9 @@ class ProductsScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
         if (state is ShopSuccessChangeFavoritesState) {
-          if (!state.model.status) {
+          if (!state.model!.status!) {
             showToast(
-              text: state.model.message,
+              text: state.model!.message!,
               state: ToastStates.ERROR,
             );
           }
@@ -27,8 +27,8 @@ class ProductsScreen extends StatelessWidget {
         return ConditionalBuilder(
           condition: ShopCubit.get(context).homeModel != null &&
               ShopCubit.get(context).categoriesModel != null,
-          builder: (context) => builderWidget(ShopCubit.get(context).homeModel,
-              ShopCubit.get(context).categoriesModel, context),
+          builder: (context) => builderWidget(ShopCubit.get(context).homeModel!,
+              ShopCubit.get(context).categoriesModel!, context),
           fallback: (context) => Center(
             child: CircularProgressIndicator(),
           ),
@@ -48,7 +48,7 @@ class ProductsScreen extends StatelessWidget {
               items: model.data.banners
                   .map(
                     (e) => Image(
-                      image: NetworkImage(e.image),
+                      image: NetworkImage(e.image!),
                       fit: BoxFit.cover,
                       width: double.infinity,
                     ),
@@ -141,7 +141,7 @@ class ProductsScreen extends StatelessWidget {
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Image(
-            image: NetworkImage(model.image),
+            image: NetworkImage(model.image!),
             height: 100.0,
             width: 100.0,
             fit: BoxFit.cover,
@@ -152,7 +152,7 @@ class ProductsScreen extends StatelessWidget {
             ),
             width: 100.0,
             child: Text(
-              model.name,
+              model.name!,
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -173,7 +173,7 @@ class ProductsScreen extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 Image(
-                  image: NetworkImage(model.image),
+                  image: NetworkImage(model.image!),
                   width: double.infinity,
                   height: 200.0,
                 ),
@@ -199,7 +199,7 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.name,
+                    model.name!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -237,7 +237,7 @@ class ProductsScreen extends StatelessWidget {
                         icon: CircleAvatar(
                           radius: 15.0,
                           backgroundColor:
-                              ShopCubit.get(context).favorites[model.id]
+                              ShopCubit.get(context).favorites[model.id]!
                                   ? defaultColor
                                   : Colors.grey,
                           child: Icon(

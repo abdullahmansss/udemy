@@ -17,10 +17,10 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
   static SocialRegisterCubit get(context) => BlocProvider.of(context);
 
   void userRegister({
-    @required String name,
-    @required String email,
-    @required String password,
-    @required String phone,
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
   }) {
     print('hello');
 
@@ -33,7 +33,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     )
         .then((value) {
       userCreate(
-        uId: value.user.uid,
+        uId: value.user!.uid,
         phone: phone,
         email: email,
         name: name,
@@ -45,10 +45,10 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
   }
 
   void userCreate({
-    @required String name,
-    @required String email,
-    @required String phone,
-    @required String uId,
+    required String name,
+    required String email,
+    required String phone,
+    required String uId,
   }) {
     SocialUserModel model = SocialUserModel(
       name: name,

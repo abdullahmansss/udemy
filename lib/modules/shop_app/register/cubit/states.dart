@@ -8,7 +8,7 @@ class ShopRegisterLoadingState extends ShopRegisterStates {}
 
 class ShopRegisterSuccessState extends ShopRegisterStates
 {
-  final ShopLoginModel loginModel;
+  final ShopLoginModel? loginModel;
 
   ShopRegisterSuccessState(this.loginModel);
 }

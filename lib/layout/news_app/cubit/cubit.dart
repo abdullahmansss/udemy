@@ -53,7 +53,7 @@ class NewsCubit extends Cubit<NewsStates>
     emit(NewsBottomNavState());
   }
 
-  List<dynamic> business = [];
+  List<dynamic>? business = [];
 
   void getBusiness()
   {
@@ -71,7 +71,7 @@ class NewsCubit extends Cubit<NewsStates>
     {
       //print(value.data['articles'][0]['title']);
       business = value.data['articles'];
-      print(business[0]['title']);
+      print(business![0]['title']);
 
       emit(NewsGetBusinessSuccessState());
     }).catchError((error){
@@ -80,13 +80,13 @@ class NewsCubit extends Cubit<NewsStates>
     });
   }
 
-  List<dynamic> sports = [];
+  List<dynamic>? sports = [];
 
   void getSports()
   {
     emit(NewsGetSportsLoadingState());
 
-    if(sports.length == 0)
+    if(sports!.length == 0)
     {
       DioHelper.getData(
         url: 'v2/top-headlines',
@@ -100,7 +100,7 @@ class NewsCubit extends Cubit<NewsStates>
       {
         //print(value.data['articles'][0]['title']);
         sports = value.data['articles'];
-        print(sports[0]['title']);
+        print(sports![0]['title']);
 
         emit(NewsGetSportsSuccessState());
       }).catchError((error){
@@ -113,13 +113,13 @@ class NewsCubit extends Cubit<NewsStates>
       }
   }
 
-  List<dynamic> science = [];
+  List<dynamic>? science = [];
 
   void getScience()
   {
     emit(NewsGetScienceLoadingState());
 
-    if(science.length == 0)
+    if(science!.length == 0)
     {
       DioHelper.getData(
         url: 'v2/top-headlines',
@@ -133,7 +133,7 @@ class NewsCubit extends Cubit<NewsStates>
       {
         //print(value.data['articles'][0]['title']);
         science = value.data['articles'];
-        print(science[0]['title']);
+        print(science![0]['title']);
 
         emit(NewsGetScienceSuccessState());
       }).catchError((error){
@@ -146,7 +146,7 @@ class NewsCubit extends Cubit<NewsStates>
       }
   }
 
-  List<dynamic> search = [];
+  List<dynamic>? search = [];
 
   void getSearch(String value)
   {
@@ -163,7 +163,7 @@ class NewsCubit extends Cubit<NewsStates>
     {
       //print(value.data['articles'][0]['title']);
       search = value.data['articles'];
-      print(search[0]['title']);
+      print(search![0]['title']);
 
       emit(NewsGetSearchSuccessState());
     }).catchError((error){

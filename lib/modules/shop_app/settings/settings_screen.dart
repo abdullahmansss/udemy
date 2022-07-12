@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
@@ -17,11 +17,11 @@ class SettingsScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var model = ShopCubit.get(context).userModel;
+        var model = ShopCubit.get(context).userModel!;
 
-        nameController.text = model.data.name;
-        emailController.text = model.data.email;
-        phoneController.text = model.data.phone;
+        nameController.text = model.data!.name!;
+        emailController.text = model.data!.email!;
+        phoneController.text = model.data!.phone!;
 
         return ConditionalBuilder(
           condition: ShopCubit.get(context).userModel != null,
@@ -88,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
                   defaultButton(
                     function: ()
                     {
-                      if(formKey.currentState.validate())
+                      if(formKey.currentState!.validate())
                       {
                         ShopCubit.get(context).updateUserData(
                           name: nameController.text,

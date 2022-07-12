@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/social_app/social_layout.dart';
@@ -53,13 +53,13 @@ class SocialLoginScreen extends StatelessWidget {
                       children: [
                         Text(
                           'LOGIN',
-                          style: Theme.of(context).textTheme.headline4.copyWith(
+                          style: Theme.of(context).textTheme.headline4!.copyWith(
                                 color: Colors.black,
                               ),
                         ),
                         Text(
                           'Login now to communicate with friends',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                 color: Colors.grey,
                               ),
                         ),
@@ -85,7 +85,7 @@ class SocialLoginScreen extends StatelessWidget {
                           type: TextInputType.visiblePassword,
                           suffix: SocialLoginCubit.get(context).suffix,
                           onSubmit: (value) {
-                            if (formKey.currentState.validate()) {
+                            if (formKey.currentState!.validate()) {
                               // SocialLoginCubit.get(context).userLogin(
                               //   email: emailController.text,
                               //   password: passwordController.text,
@@ -112,7 +112,7 @@ class SocialLoginScreen extends StatelessWidget {
                           condition: state is! SocialLoginLoadingState,
                           builder: (context) => defaultButton(
                             function: () {
-                              if (formKey.currentState.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 SocialLoginCubit.get(context).userLogin(
                                   email: emailController.text,
                                   password: passwordController.text,

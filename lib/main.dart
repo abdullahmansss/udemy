@@ -62,11 +62,11 @@ void main() async
   // background fcm
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  Bloc.observer = MyBlocObserver();
+  // Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
 
-  bool isDark = CacheHelper.getData(key: 'isDark');
+  bool? isDark = CacheHelper.getData(key: 'isDark');
 
   Widget widget;
 
@@ -107,8 +107,8 @@ class MyApp extends StatelessWidget
 {
   // constructor
   // build
-  final bool isDark;
-  final Widget startWidget;
+  final bool? isDark;
+  final Widget? startWidget;
 
   MyApp({
     this.isDark,

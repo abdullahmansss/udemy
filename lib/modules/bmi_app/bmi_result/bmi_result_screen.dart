@@ -7,9 +7,9 @@ class BMIResultScreen extends StatelessWidget
   final int age;
 
   BMIResultScreen({
-    @required this.result,
-    @required this.age,
-    @required this.isMale,
+    required this.result,
+    required this.age,
+    required this.isMale,
   });
 
   @override

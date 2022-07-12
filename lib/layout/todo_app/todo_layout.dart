@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -52,7 +52,7 @@ class HomeLayout extends StatelessWidget {
               onPressed: () {
                 if (cubit.isBottomSheetShown)
                 {
-                  if (formKey.currentState.validate())
+                  if (formKey.currentState!.validate())
                   {
                     cubit.insertToDatabase(
                       title: titleController.text,
@@ -62,7 +62,7 @@ class HomeLayout extends StatelessWidget {
                   }
                 } else
                   {
-                  scaffoldKey.currentState
+                  scaffoldKey.currentState!
                       .showBottomSheet(
                         (context) => Container(
                           color: Colors.white,
@@ -99,7 +99,7 @@ class HomeLayout extends StatelessWidget {
                                       initialTime: TimeOfDay.now(),
                                     ).then((value) {
                                       timeController.text =
-                                          value.format(context).toString();
+                                          value!.format(context).toString();
                                       print(value.format(context));
                                     });
                                   },
@@ -127,7 +127,7 @@ class HomeLayout extends StatelessWidget {
                                       lastDate: DateTime.parse('2021-05-03'),
                                     ).then((value) {
                                       dateController.text =
-                                          DateFormat.yMMMd().format(value);
+                                          DateFormat.yMMMd().format(value!);
                                     });
                                   },
                                   validate: (String value) {

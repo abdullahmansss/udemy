@@ -1,12 +1,12 @@
 class SocialUserModel {
-  String name;
-  String email;
-  String phone;
-  String uId;
-  String image;
-  String cover;
-  String bio;
-  bool isEmailVerified;
+  String? name;
+  String? email;
+  String? phone;
+  String? uId;
+  String? image;
+  String? cover;
+  String? bio;
+  bool? isEmailVerified;
 
   SocialUserModel({
     this.email,

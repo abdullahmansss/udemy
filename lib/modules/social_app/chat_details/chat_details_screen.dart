@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
@@ -9,7 +9,7 @@ import 'package:udemy_flutter/shared/styles/colors.dart';
 import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
 class ChatDetailsScreen extends StatelessWidget {
-  SocialUserModel userModel;
+  SocialUserModel? userModel;
 
   ChatDetailsScreen({
     this.userModel,
@@ -22,7 +22,7 @@ class ChatDetailsScreen extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         SocialCubit.get(context).getMessages(
-          receiverId: userModel.uId,
+          receiverId: userModel!.uId,
         );
 
         return BlocConsumer<SocialCubit, SocialStates>(
@@ -36,14 +36,14 @@ class ChatDetailsScreen extends StatelessWidget {
                     CircleAvatar(
                       radius: 20.0,
                       backgroundImage: NetworkImage(
-                        userModel.image,
+                        userModel!.image!,
                       ),
                     ),
                     SizedBox(
                       width: 15.0,
                     ),
                     Text(
-                      userModel.name,
+                      userModel!.name!,
                     ),
                   ],
                 ),
@@ -61,7 +61,7 @@ class ChatDetailsScreen extends StatelessWidget {
                           {
                             var message = SocialCubit.get(context).messages[index];
 
-                            if(SocialCubit.get(context).userModel.uId == message.senderId)
+                            if(SocialCubit.get(context).userModel!.uId == message.senderId)
                               return buildMyMessage(message);
 
                             return buildMessage(message);
@@ -75,7 +75,7 @@ class ChatDetailsScreen extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.grey[300],
+                            color: Colors.grey[300]!,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(
@@ -105,7 +105,7 @@ class ChatDetailsScreen extends StatelessWidget {
                               child: MaterialButton(
                                 onPressed: () {
                                   SocialCubit.get(context).sendMessage(
-                                    receiverId: userModel.uId,
+                                    receiverId: userModel!.uId,
                                     dateTime: DateTime.now().toString(),
                                     text: messageController.text,
                                   );
@@ -157,7 +157,7 @@ class ChatDetailsScreen extends StatelessWidget {
             horizontal: 10.0,
           ),
           child: Text(
-            model.text,
+            model.text!,
           ),
         ),
       );
@@ -186,7 +186,7 @@ class ChatDetailsScreen extends StatelessWidget {
             horizontal: 10.0,
           ),
           child: Text(
-            model.text,
+            model.text!,
           ),
         ),
       );

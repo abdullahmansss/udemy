@@ -41,7 +41,7 @@ class NewPostScreen extends StatelessWidget
                 text: 'Post',
               ),
             ],
-          ),
+          ) as PreferredSizeWidget?,
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -95,7 +95,7 @@ class NewPostScreen extends StatelessWidget
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4.0,),
                         image: DecorationImage(
-                          image: FileImage(SocialCubit.get(context).postImage),
+                          image: FileImage(SocialCubit.get(context).postImage!),
                           fit: BoxFit.cover,
                         ),
                       ),

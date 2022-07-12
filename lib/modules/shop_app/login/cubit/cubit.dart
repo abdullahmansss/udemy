@@ -11,11 +11,11 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
 
   static ShopLoginCubit get(context) => BlocProvider.of(context);
 
-  ShopLoginModel loginModel;
+  ShopLoginModel? loginModel;
 
   void userLogin({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   })
   {
     emit(ShopLoginLoadingState());

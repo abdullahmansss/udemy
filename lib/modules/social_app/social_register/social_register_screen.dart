@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/social_app/social_layout.dart';
@@ -40,13 +40,13 @@ class SocialRegisterScreen extends StatelessWidget {
                       children: [
                         Text(
                           'REGISTER',
-                          style: Theme.of(context).textTheme.headline4.copyWith(
+                          style: Theme.of(context).textTheme.headline4!.copyWith(
                                 color: Colors.black,
                               ),
                         ),
                         Text(
                           'Register now to communicate with friends',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                 color: Colors.grey,
                               ),
                         ),
@@ -121,7 +121,7 @@ class SocialRegisterScreen extends StatelessWidget {
                           condition: state is! SocialRegisterLoadingState,
                           builder: (context) => defaultButton(
                             function: () {
-                              if (formKey.currentState.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 SocialRegisterCubit.get(context).userRegister(
                                   name: nameController.text,
                                   email: emailController.text,

@@ -1,8 +1,8 @@
 class MessageModel {
-  String senderId;
-  String receiverId;
-  String dateTime;
-  String text;
+  String? senderId;
+  String? receiverId;
+  String? dateTime;
+  String? text;
 
   MessageModel({
     this.senderId,

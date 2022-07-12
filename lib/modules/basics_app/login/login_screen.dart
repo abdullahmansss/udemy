@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen>
                     text: 'login',
                     function: ()
                     {
-                      if(formKey.currentState.validate())
+                      if(formKey.currentState!.validate())
                       {
                         print(emailController.text);
                         print(passwordController.text);

@@ -10,8 +10,8 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
   static SocialLoginCubit get(context) => BlocProvider.of(context);
 
   void userLogin({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) {
     emit(SocialLoginLoadingState());
 
@@ -21,9 +21,9 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
           password: password,
         )
         .then((value) {
-          print(value.user.email);
-          print(value.user.uid);
-          emit(SocialLoginSuccessState(value.user.uid));
+          print(value.user!.email);
+          print(value.user!.uid);
+          emit(SocialLoginSuccessState(value.user!.uid));
     })
         .catchError((error)
     {

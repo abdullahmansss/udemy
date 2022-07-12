@@ -6,8 +6,8 @@ class UserModel {
   final String phone;
 
   UserModel({
-    @required this.id,
-    @required this.phone,
-    @required this.name,
+    required this.id,
+    required this.phone,
+    required this.name,
   });
 }

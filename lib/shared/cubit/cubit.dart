@@ -31,7 +31,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppChangeBottomNavBarState());
   }
 
-  Database database;
+  late Database database;
   List<Map> newTasks = [];
   List<Map> doneTasks = [];
   List<Map> archivedTasks = [];
@@ -68,9 +68,9 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   insertToDatabase({
-    @required String title,
-    @required String time,
-    @required String date,
+    required String title,
+    required String time,
+    required String date,
   }) async {
     await database.transaction((txn) {
       txn
@@ -87,7 +87,7 @@ class AppCubit extends Cubit<AppStates> {
       });
 
       return null;
-    });
+    } as Future<dynamic> Function(Transaction));
   }
 
   void getDataFromDatabase(database) {
@@ -112,8 +112,8 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void updateData({
-    @required String status,
-    @required int id,
+    required String status,
+    required int? id,
   }) async {
     database.rawUpdate(
       'UPDATE tasks SET status = ? WHERE id = ?',
@@ -125,7 +125,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void deleteData({
-    @required int id,
+    required int? id,
   }) async {
     database.rawDelete('DELETE FROM tasks WHERE id = ?', [id]).then((value) {
       getDataFromDatabase(database);
@@ -137,8 +137,8 @@ class AppCubit extends Cubit<AppStates> {
   IconData fabIcon = Icons.edit;
 
   void changeBottomSheetState({
-    @required bool isShow,
-    @required IconData icon,
+    required bool isShow,
+    required IconData icon,
   }) {
     isBottomSheetShown = isShow;
     fabIcon = icon;
@@ -148,7 +148,7 @@ class AppCubit extends Cubit<AppStates> {
 
   bool isDark = false;
 
-  void changeAppMode({bool fromShared})
+  void changeAppMode({bool? fromShared})
   {
     if (fromShared != null)
     {

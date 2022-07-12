@@ -36,9 +36,9 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeBottomNavState());
   }
 
-  HomeModel homeModel;
+  HomeModel? homeModel;
 
-  Map<int, bool> favorites = {};
+  Map<int?, bool?> favorites = {};
 
   void getHomeData() {
     emit(ShopLoadingHomeDataState());
@@ -52,7 +52,7 @@ class ShopCubit extends Cubit<ShopStates> {
       //print(homeModel.data.banners[0].image);
       //print(homeModel.status);
 
-      homeModel.data.products.forEach((element) {
+      homeModel!.data.products.forEach((element) {
         favorites.addAll({
           element.id: element.inFavorites,
         });
@@ -67,7 +67,7 @@ class ShopCubit extends Cubit<ShopStates> {
     });
   }
 
-  CategoriesModel categoriesModel;
+  CategoriesModel? categoriesModel;
 
   void getCategories() {
     DioHelper.getData(
@@ -82,10 +82,10 @@ class ShopCubit extends Cubit<ShopStates> {
     });
   }
 
-  ChangeFavoritesModel changeFavoritesModel;
+  ChangeFavoritesModel? changeFavoritesModel;
 
-  void changeFavorites(int productId) {
-    favorites[productId] = !favorites[productId];
+  void changeFavorites(int? productId) {
+    favorites[productId] = !favorites[productId]!;
 
     emit(ShopChangeFavoritesState());
 
@@ -99,21 +99,21 @@ class ShopCubit extends Cubit<ShopStates> {
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
       print(value.data);
 
-      if (!changeFavoritesModel.status) {
-        favorites[productId] = !favorites[productId];
+      if (!changeFavoritesModel!.status!) {
+        favorites[productId] = !favorites[productId]!;
       } else {
         getFavorites();
       }
 
       emit(ShopSuccessChangeFavoritesState(changeFavoritesModel));
     }).catchError((error) {
-      favorites[productId] = !favorites[productId];
+      favorites[productId] = !favorites[productId]!;
 
       emit(ShopErrorChangeFavoritesState());
     });
   }
 
-  FavoritesModel favoritesModel;
+  late FavoritesModel favoritesModel;
 
   void getFavorites() {
     emit(ShopLoadingGetFavoritesState());
@@ -132,7 +132,7 @@ class ShopCubit extends Cubit<ShopStates> {
     });
   }
 
-  ShopLoginModel userModel;
+  ShopLoginModel? userModel;
 
   void getUserData() {
     emit(ShopLoadingUserDataState());
@@ -142,7 +142,7 @@ class ShopCubit extends Cubit<ShopStates> {
       token: token,
     ).then((value) {
       userModel = ShopLoginModel.fromJson(value.data);
-      printFullText(userModel.data.name);
+      printFullText(userModel!.data!.name!);
 
       emit(ShopSuccessUserDataState(userModel));
     }).catchError((error) {
@@ -152,9 +152,9 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   void updateUserData({
-    @required String name,
-    @required String email,
-    @required String phone,
+    required String name,
+    required String email,
+    required String phone,
   }) {
     emit(ShopLoadingUpdateUserState());
 
@@ -168,7 +168,7 @@ class ShopCubit extends Cubit<ShopStates> {
       },
     ).then((value) {
       userModel = ShopLoginModel.fromJson(value.data);
-      printFullText(userModel.data.name);
+      printFullText(userModel!.data!.name!);
 
       emit(ShopSuccessUpdateUserState(userModel));
     }).catchError((error) {
