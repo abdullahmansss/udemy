@@ -7,13 +7,16 @@ import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
 
 class SettingsScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var phoneController = TextEditingController();
+  const SettingsScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    var formKey = GlobalKey<FormState>();
+    var nameController = TextEditingController();
+    var emailController = TextEditingController();
+    var phoneController = TextEditingController();
+
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -33,8 +36,8 @@ class SettingsScreen extends StatelessWidget {
                 children:
                 [
                   if(state is ShopLoadingUpdateUserState)
-                  LinearProgressIndicator(),
-                  SizedBox(
+                  const LinearProgressIndicator(),
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultFormField(
@@ -50,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
                     label: 'Name',
                     prefix: Icons.person,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultFormField(
@@ -66,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
                     label: 'Email Address',
                     prefix: Icons.email,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultFormField(
@@ -82,7 +85,7 @@ class SettingsScreen extends StatelessWidget {
                     label: 'Phone',
                     prefix: Icons.phone,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
@@ -99,7 +102,7 @@ class SettingsScreen extends StatelessWidget {
                     },
                     text: 'update',
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
@@ -112,7 +115,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-          fallback: (context) => Center(child: CircularProgressIndicator()),
+          fallback: (context) => const Center(child: CircularProgressIndicator()),
         );
       },
     );

@@ -7,14 +7,17 @@ import 'package:udemy_flutter/modules/social_app/social_register/cubit/states.da
 import 'package:udemy_flutter/shared/components/components.dart';
 
 class SocialRegisterScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
+  const SocialRegisterScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    var formKey = GlobalKey<FormState>();
+    var nameController = TextEditingController();
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
+    var phoneController = TextEditingController();
+
     return BlocProvider(
       create: (BuildContext context) => SocialRegisterCubit(),
       child: BlocConsumer<SocialRegisterCubit, SocialRegisterStates>(
@@ -22,7 +25,7 @@ class SocialRegisterScreen extends StatelessWidget {
           if (state is SocialCreateUserSuccessState) {
             navigateAndFinish(
               context,
-              SocialLayout(),
+              const SocialLayout(),
             );
           }
         },
@@ -50,7 +53,7 @@ class SocialRegisterScreen extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         defaultFormField(
@@ -64,7 +67,7 @@ class SocialRegisterScreen extends StatelessWidget {
                           label: 'User Name',
                           prefix: Icons.person,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
@@ -78,7 +81,7 @@ class SocialRegisterScreen extends StatelessWidget {
                           label: 'Email Address',
                           prefix: Icons.email_outlined,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
@@ -100,7 +103,7 @@ class SocialRegisterScreen extends StatelessWidget {
                           label: 'Password',
                           prefix: Icons.lock_outline,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
@@ -114,7 +117,7 @@ class SocialRegisterScreen extends StatelessWidget {
                           label: 'Phone',
                           prefix: Icons.phone,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         ConditionalBuilder(
@@ -134,7 +137,7 @@ class SocialRegisterScreen extends StatelessWidget {
                             isUpperCase: true,
                           ),
                           fallback: (context) =>
-                              Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                         ),
                       ],
                     ),

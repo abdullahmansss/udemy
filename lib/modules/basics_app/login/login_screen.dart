@@ -8,22 +8,21 @@ import 'package:udemy_flutter/shared/components/components.dart';
 // 3. quality
 // 4. clean code
 
-class LoginScreen extends StatefulWidget
-{
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-{
+class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   bool isPassword = true;
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -34,16 +33,15 @@ class _LoginScreenState extends State<LoginScreen>
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children:
-                [
-                  Text(
+                children: [
+                  const Text(
                     'Login',
                     style: TextStyle(
                       fontSize: 40.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40.0,
                   ),
                   defaultFormField(
@@ -51,80 +49,72 @@ class _LoginScreenState extends State<LoginScreen>
                     label: 'Email',
                     prefix: Icons.email,
                     type: TextInputType.emailAddress,
-                    validate: (String value)
-                    {
-                      if(value.isEmpty)
-                      {
+                    validate: (String value) {
+                      if (value.isEmpty) {
                         return 'email must not be empty';
                       }
 
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15.0,
                   ),
                   defaultFormField(
                     controller: passwordController,
                     label: 'Password',
                     prefix: Icons.lock,
-                    suffix: isPassword ? Icons.visibility : Icons.visibility_off,
+                    suffix:
+                        isPassword ? Icons.visibility : Icons.visibility_off,
                     isPassword: isPassword,
-                    suffixPressed: ()
-                    {
-                      setState(()
-                      {
+                    suffixPressed: () {
+                      setState(() {
                         isPassword = !isPassword;
                       });
                     },
                     type: TextInputType.visiblePassword,
-                    validate: (String value)
-                    {
-                      if(value.isEmpty)
-                      {
+                    validate: (String value) {
+                      if (value.isEmpty) {
                         return 'password is too short';
                       }
 
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
                     text: 'login',
-                    function: ()
-                    {
-                      if(formKey.currentState!.validate())
-                      {
-                        print(emailController.text);
-                        print(passwordController.text);
+                    function: () {
+                      if (formKey.currentState!.validate()) {
+                        debugPrint(emailController.text);
+                        debugPrint(passwordController.text);
                       }
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
                     text: 'ReGIster',
-                    function: ()
-                    {
-                      print(emailController.text);
-                      print(passwordController.text);
+                    function: () {
+                      debugPrint(emailController.text);
+                      debugPrint(passwordController.text);
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Don\'t have an account?',
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'Register Now',
                         ),
                       ),

@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
@@ -9,6 +8,8 @@ import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
 class SocialLayout extends StatelessWidget
 {
+  const SocialLayout({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context)
   {
@@ -17,7 +18,7 @@ class SocialLayout extends StatelessWidget
         if (state is SocialNewPostState) {
           navigateTo(
             context,
-            NewPostScreen(),
+            const NewPostScreen(),
           );
         }
       },
@@ -32,14 +33,14 @@ class SocialLayout extends StatelessWidget
             ),
             actions: [
               IconButton(
-                icon: Icon(
-                  IconBroken.Notification,
+                icon: const Icon(
+                  IconBroken.kNotification,
                 ),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(
-                  IconBroken.Search,
+                icon: const Icon(
+                  IconBroken.kSearch,
                 ),
                 onPressed: () {},
               ),
@@ -52,34 +53,34 @@ class SocialLayout extends StatelessWidget
             {
               cubit.changeBottomNav(index);
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(
-                  IconBroken.Home,
+                  IconBroken.kHome,
                 ),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  IconBroken.Chat,
+                  IconBroken.kChat,
                 ),
                 label: 'Chats',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  IconBroken.Paper_Upload,
+                  IconBroken.kPaperUpload,
                 ),
                 label: 'Post',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  IconBroken.Location,
+                  IconBroken.kLocation,
                 ),
                 label: 'Users',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  IconBroken.Setting,
+                  IconBroken.kSetting,
                 ),
                 label: 'Settings',
               ),

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/models/shop_app/login_model.dart';
-import 'package:udemy_flutter/modules/shop_app/login/cubit/states.dart';
 import 'package:udemy_flutter/modules/shop_app/register/cubit/states.dart';
 import 'package:udemy_flutter/shared/network/end_points.dart';
 import 'package:udemy_flutter/shared/network/remote/dio_helper.dart';
@@ -24,7 +22,7 @@ class ShopRegisterCubit extends Cubit<ShopRegisterStates> {
     emit(ShopRegisterLoadingState());
 
     DioHelper.postData(
-      url: REGISTER,
+      url: kREGISTER,
       data:
       {
         'name': name,
@@ -34,12 +32,12 @@ class ShopRegisterCubit extends Cubit<ShopRegisterStates> {
       },
     ).then((value)
     {
-      print(value.data);
+      debugPrint(value.data);
       loginModel = ShopLoginModel.fromJson(value.data);
       emit(ShopRegisterSuccessState(loginModel));
     }).catchError((error)
     {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(ShopRegisterErrorState(error.toString()));
     });
   }

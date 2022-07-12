@@ -9,12 +9,15 @@ import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 
 class SocialLoginScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+  const SocialLoginScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    var formKey = GlobalKey<FormState>();
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
+
     return BlocProvider(
       create: (BuildContext context) => SocialLoginCubit(),
       child: BlocConsumer<SocialLoginCubit, SocialLoginStates>(
@@ -22,7 +25,7 @@ class SocialLoginScreen extends StatelessWidget {
           if (state is SocialLoginErrorState) {
             showToast(
               text: state.error,
-              state: ToastStates.ERROR,
+              state: ToastStates.kERROR,
             );
           }
           if(state is SocialLoginSuccessState)
@@ -34,7 +37,7 @@ class SocialLoginScreen extends StatelessWidget {
             {
               navigateAndFinish(
                 context,
-                SocialLayout(),
+                const SocialLayout(),
               );
             });
           }
@@ -63,7 +66,7 @@ class SocialLoginScreen extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         defaultFormField(
@@ -77,7 +80,7 @@ class SocialLoginScreen extends StatelessWidget {
                           label: 'Email Address',
                           prefix: Icons.email_outlined,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
@@ -105,7 +108,7 @@ class SocialLoginScreen extends StatelessWidget {
                           label: 'Password',
                           prefix: Icons.lock_outline,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         ConditionalBuilder(
@@ -123,22 +126,22 @@ class SocialLoginScreen extends StatelessWidget {
                             isUpperCase: true,
                           ),
                           fallback: (context) =>
-                              Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Don\'t have an account?',
                             ),
                             defaultTextButton(
                               function: () {
                                 navigateTo(
                                   context,
-                                  SocialRegisterScreen(),
+                                  const SocialRegisterScreen(),
                                 );
                               },
                               text: 'register',

@@ -18,8 +18,10 @@ class BoardingModel {
 }
 
 class OnBoardingScreen extends StatefulWidget {
+  const OnBoardingScreen({Key? key}) : super(key: key);
+
   @override
-  _OnBoardingScreenState createState() => _OnBoardingScreenState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
@@ -49,12 +51,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     CacheHelper.saveData(
       key: 'onBoarding',
       value: true,
-    ).then((value)
-    {
+    ).then((value) {
       if (value) {
         navigateAndFinish(
           context,
-          ShopLoginScreen(),
+          const ShopLoginScreen(),
         );
       }
     });
@@ -77,7 +78,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           children: [
             Expanded(
               child: PageView.builder(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 controller: boardController,
                 onPageChanged: (int index) {
                   if (index == boarding.length - 1) {
@@ -95,14 +96,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 itemCount: boarding.length,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40.0,
             ),
             Row(
               children: [
                 SmoothPageIndicator(
                   controller: boardController,
-                  effect: ExpandingDotsEffect(
+                  effect: const ExpandingDotsEffect(
                     dotColor: Colors.grey,
                     activeDotColor: defaultColor,
                     dotHeight: 10,
@@ -112,22 +113,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                   count: boarding.length,
                 ),
-                Spacer(),
+                const Spacer(),
                 FloatingActionButton(
                   onPressed: () {
-                    if (isLast)
-                    {
+                    if (isLast) {
                       submit();
                     } else {
                       boardController.nextPage(
-                        duration: Duration(
+                        duration: const Duration(
                           milliseconds: 750,
                         ),
                         curve: Curves.fastLinearToSlowEaseIn,
                       );
                     }
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_forward_ios,
                   ),
                 ),
@@ -144,28 +144,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         children: [
           Expanded(
             child: Image(
-              image: AssetImage('${model.image}'),
+              image: AssetImage(model.image),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30.0,
           ),
           Text(
-            '${model.title}',
-            style: TextStyle(
+            model.title,
+            style: const TextStyle(
               fontSize: 24.0,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15.0,
           ),
           Text(
-            '${model.body}',
-            style: TextStyle(
+            model.body,
+            style: const TextStyle(
               fontSize: 14.0,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30.0,
           ),
         ],

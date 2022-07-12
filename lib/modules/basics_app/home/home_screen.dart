@@ -1,8 +1,9 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // main axis alignment : start
@@ -11,25 +12,25 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        leading: Icon(
+        leading: const Icon(
           Icons.menu,
         ),
-        title: Text(
+        title: const Text(
           'First App',
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.notification_important,
             ),
             onPressed: onNotification,
           ),
           IconButton(
-            icon: Text(
+            icon: const Text(
               'hello',
             ),
             onPressed: () {
-              print('hello');
+              debugPrint('hello');
             },
           ),
         ],
@@ -39,7 +40,7 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(50.0),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadiusDirectional.only(
                   topStart: Radius.circular(
                     20.0,
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
-                  Image(
+                  const Image(
                     image: NetworkImage(
                       'https://cdn.pixabay.com/photo/2015/04/19/08/33/flower-729512__340.jpg',
                     ),
@@ -64,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       vertical: 10.0,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Flower',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -84,6 +85,6 @@ class HomeScreen extends StatelessWidget {
 
   // when notification icon button clicked
   void onNotification() {
-    print('notification clicked');
+    debugPrint('notification clicked');
   }
 }

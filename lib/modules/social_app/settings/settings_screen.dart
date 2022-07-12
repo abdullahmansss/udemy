@@ -8,6 +8,8 @@ import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
 class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
@@ -19,17 +21,18 @@ class SettingsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 190.0,
                 child: Stack(
                   alignment: AlignmentDirectional.bottomCenter,
                   children: [
                     Align(
+                      alignment: AlignmentDirectional.topCenter,
                       child: Container(
                         height: 140.0,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(
                               4.0,
                             ),
@@ -45,7 +48,6 @@ class SettingsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      alignment: AlignmentDirectional.topCenter,
                     ),
                     CircleAvatar(
                       radius: 64.0,
@@ -61,7 +63,7 @@ class SettingsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5.0,
               ),
               Text(
@@ -154,23 +156,23 @@ class SettingsScreen extends StatelessWidget {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Add Photos',
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
                   OutlinedButton(
                     onPressed: () {
                       navigateTo(
                         context,
-                        EditProfileScreen(),
+                        const EditProfileScreen(),
                       );
                     },
-                    child: Icon(
-                      IconBroken.Edit,
+                    child: const Icon(
+                      IconBroken.kEdit,
                       size: 16.0,
                     ),
                   ),
@@ -183,11 +185,11 @@ class SettingsScreen extends StatelessWidget {
                     {
                       FirebaseMessaging.instance.subscribeToTopic('announcements');
                     },
-                    child: Text(
+                    child: const Text(
                       'subscribe',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   OutlinedButton(
@@ -195,7 +197,7 @@ class SettingsScreen extends StatelessWidget {
                     {
                       FirebaseMessaging.instance.unsubscribeFromTopic('announcements');
                     },
-                    child: Text(
+                    child: const Text(
                       'unsubscribe',
                     ),
                   ),

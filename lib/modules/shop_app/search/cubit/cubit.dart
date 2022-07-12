@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/models/shop_app/search_model.dart';
 import 'package:udemy_flutter/modules/shop_app/search/cubit/states.dart';
@@ -16,7 +17,7 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(SearchLoadingState());
 
     DioHelper.postData(
-      url: SEARCH,
+      url: kSEARCH,
       token: token,
       data: {
         'text': text,
@@ -28,7 +29,7 @@ class SearchCubit extends Cubit<SearchStates> {
       emit(SearchSuccessState());
     }).catchError((error)
     {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(SearchErrorState());
     });
   }

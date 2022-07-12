@@ -6,6 +6,8 @@ import 'package:udemy_flutter/shared/cubit/states.dart';
 
 class ArchivedTasksScreen extends StatelessWidget
 {
+  const ArchivedTasksScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(

@@ -5,6 +5,8 @@ import 'package:udemy_flutter/modules/shop_app/search/cubit/states.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 
 class SearchScreen extends StatelessWidget {
+  const SearchScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var formKey = GlobalKey<FormState>();
@@ -39,11 +41,11 @@ class SearchScreen extends StatelessWidget {
                       label: 'Search',
                       prefix: Icons.search,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
-                    if (state is SearchLoadingState) LinearProgressIndicator(),
-                    SizedBox(
+                    if (state is SearchLoadingState) const LinearProgressIndicator(),
+                    const SizedBox(
                       height: 10.0,
                     ),
                     if (state is SearchSuccessState)

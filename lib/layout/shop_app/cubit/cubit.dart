@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +9,6 @@ import 'package:udemy_flutter/models/shop_app/home_model.dart';
 import 'package:udemy_flutter/models/shop_app/login_model.dart';
 import 'package:udemy_flutter/modules/shop_app/cateogries/categories_screen.dart';
 import 'package:udemy_flutter/modules/shop_app/favorites/favorites_screen.dart';
-import 'package:udemy_flutter/modules/shop_app/login/cubit/cubit.dart';
 import 'package:udemy_flutter/modules/shop_app/products/products_screen.dart';
 import 'package:udemy_flutter/modules/shop_app/settings/settings_screen.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
@@ -25,10 +23,10 @@ class ShopCubit extends Cubit<ShopStates> {
   int currentIndex = 0;
 
   List<Widget> bottomScreens = [
-    ProductsScreen(),
-    CategoriesScreen(),
-    FavoritesScreen(),
-    SettingsScreen(),
+    const ProductsScreen(),
+    const CategoriesScreen(),
+    const FavoritesScreen(),
+    const SettingsScreen(),
   ];
 
   void changeBottom(int index) {
@@ -44,25 +42,25 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopLoadingHomeDataState());
 
     DioHelper.getData(
-      url: HOME,
+      url: kHOME,
       token: token,
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
 
-      //print(homeModel.data.banners[0].image);
-      //print(homeModel.status);
+      //debugPrint(homeModel.data.banners[0].image);
+      //debugPrint(homeModel.status);
 
-      homeModel!.data.products.forEach((element) {
+      for (var element in homeModel!.data.products) {
         favorites.addAll({
           element.id: element.inFavorites,
         });
-      });
+      }
 
-      //print(favorites.toString());
+      //debugPrint(favorites.toString());
 
       emit(ShopSuccessHomeDataState());
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(ShopErrorHomeDataState());
     });
   }
@@ -71,13 +69,13 @@ class ShopCubit extends Cubit<ShopStates> {
 
   void getCategories() {
     DioHelper.getData(
-      url: GET_CATEGORIES,
+      url: kGetCATEGORIES,
     ).then((value) {
       categoriesModel = CategoriesModel.fromJson(value.data);
 
       emit(ShopSuccessCategoriesState());
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(ShopErrorCategoriesState());
     });
   }
@@ -90,14 +88,14 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeFavoritesState());
 
     DioHelper.postData(
-      url: FAVORITES,
+      url: kFAVORITES,
       data: {
         'product_id': productId,
       },
       token: token,
     ).then((value) {
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
-      print(value.data);
+      debugPrint(value.data);
 
       if (!changeFavoritesModel!.status!) {
         favorites[productId] = !favorites[productId]!;
@@ -119,7 +117,7 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopLoadingGetFavoritesState());
 
     DioHelper.getData(
-      url: FAVORITES,
+      url: kFAVORITES,
       token: token,
     ).then((value) {
       favoritesModel = FavoritesModel.fromJson(value.data);
@@ -127,7 +125,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
       emit(ShopSuccessGetFavoritesState());
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(ShopErrorGetFavoritesState());
     });
   }
@@ -138,7 +136,7 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopLoadingUserDataState());
 
     DioHelper.getData(
-      url: PROFILE,
+      url: kPROFILE,
       token: token,
     ).then((value) {
       userModel = ShopLoginModel.fromJson(value.data);
@@ -146,7 +144,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
       emit(ShopSuccessUserDataState(userModel));
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(ShopErrorUserDataState());
     });
   }
@@ -159,7 +157,7 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopLoadingUpdateUserState());
 
     DioHelper.putData(
-      url: UPDATE_PROFILE,
+      url: kUpdatePROFILE,
       token: token,
       data: {
         'name': name,
@@ -172,7 +170,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
       emit(ShopSuccessUpdateUserState(userModel));
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(ShopErrorUpdateUserState());
     });
   }

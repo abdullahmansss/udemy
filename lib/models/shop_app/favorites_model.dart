@@ -1,14 +1,14 @@
 class FavoritesModel 
 {
   bool? status;
-  Null message;
+  String? message;
   Data? data;
   
   FavoritesModel.fromJson(Map<String, dynamic> json) 
   {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 }
 
@@ -19,10 +19,10 @@ class Data {
   int? from;
   int? lastPage;
   String? lastPageUrl;
-  Null nextPageUrl;
+  String? nextPageUrl;
   String? path;
   int? perPage;
-  Null prevPageUrl;
+  String? prevPageUrl;
   int? to;
   int? total;
 
@@ -31,7 +31,7 @@ class Data {
     if (json['data'] != null) {
       data = <FavoritesData>[];
       json['data'].forEach((v) {
-        data.add(new FavoritesData.fromJson(v));
+        data.add(FavoritesData.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -54,7 +54,7 @@ class FavoritesData {
   FavoritesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     product =
-    json['product'] != null ? new Product.fromJson(json['product']) : null;
+    json['product'] != null ? Product.fromJson(json['product']) : null;
   }
 }
 
@@ -87,14 +87,14 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['price'] = this.price;
-    data['old_price'] = this.oldPrice;
-    data['discount'] = this.discount;
-    data['image'] = this.image;
-    data['name'] = this.name;
-    data['description'] = this.description;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['price'] = price;
+    data['old_price'] = oldPrice;
+    data['discount'] = discount;
+    data['image'] = image;
+    data['name'] = name;
+    data['description'] = description;
     return data;
   }
 }

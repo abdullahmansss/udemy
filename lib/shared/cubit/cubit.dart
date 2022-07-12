@@ -15,9 +15,9 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
 
   List<Widget> screens = [
-    NewTasksScreen(),
-    DoneTasksScreen(),
-    ArchivedTasksScreen(),
+    const NewTasksScreen(),
+    const DoneTasksScreen(),
+    const ArchivedTasksScreen(),
   ];
 
   List<String> titles = [
@@ -47,19 +47,19 @@ class AppCubit extends Cubit<AppStates> {
         // time String
         // status String
 
-        print('database created');
+        debugPrint('database created');
         database
             .execute(
                 'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)')
             .then((value) {
-          print('table created');
+          debugPrint('table created');
         }).catchError((error) {
-          print('Error When Creating Table ${error.toString()}');
+          debugPrint('Error When Creating Table ${error.toString()}');
         });
       },
       onOpen: (database) {
         getDataFromDatabase(database);
-        print('database opened');
+        debugPrint('database opened');
       },
     ).then((value) {
       database = value;
@@ -78,12 +78,12 @@ class AppCubit extends Cubit<AppStates> {
         'INSERT INTO tasks(title, date, time, status) VALUES("$title", "$date", "$time", "new")',
       )
           .then((value) {
-        print('$value inserted successfully');
+        debugPrint('$value inserted successfully');
         emit(AppInsertDatabaseState());
 
         getDataFromDatabase(database);
       }).catchError((error) {
-        print('Error When Inserting New Record ${error.toString()}');
+        debugPrint('Error When Inserting New Record ${error.toString()}');
       });
 
       return null;
@@ -99,12 +99,13 @@ class AppCubit extends Cubit<AppStates> {
 
     database.rawQuery('SELECT * FROM tasks').then((value) {
       value.forEach((element) {
-        if (element['status'] == 'new')
+        if (element['status'] == 'new') {
           newTasks.add(element);
-        else if (element['status'] == 'done')
+        } else if (element['status'] == 'done') {
           doneTasks.add(element);
-        else
+        } else {
           archivedTasks.add(element);
+        }
       });
 
       emit(AppGetDatabaseState());
@@ -117,7 +118,7 @@ class AppCubit extends Cubit<AppStates> {
   }) async {
     database.rawUpdate(
       'UPDATE tasks SET status = ? WHERE id = ?',
-      ['$status', id],
+      [status, id],
     ).then((value) {
       getDataFromDatabase(database);
       emit(AppUpdateDatabaseState());

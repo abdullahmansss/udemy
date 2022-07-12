@@ -1,15 +1,15 @@
-const LOGIN = 'login';
+const kLOGIN = 'login';
 
-const REGISTER = 'register';
+const kREGISTER = 'register';
 
-const HOME = 'home';
+const kHOME = 'home';
 
-const GET_CATEGORIES = 'categories';
+const kGetCATEGORIES = 'categories';
 
-const FAVORITES = 'favorites';
+const kFAVORITES = 'favorites';
 
-const PROFILE = 'profile';
+const kPROFILE = 'profile';
 
-const UPDATE_PROFILE = 'update-profile';
+const kUpdatePROFILE = 'update-profile';
 
-const SEARCH = 'products/search';
+const kSEARCH = 'products/search';

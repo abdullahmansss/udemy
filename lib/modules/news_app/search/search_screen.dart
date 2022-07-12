@@ -5,10 +5,12 @@ import 'package:udemy_flutter/layout/news_app/cubit/states.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 
 class SearchScreen extends StatelessWidget {
-  var searchController = TextEditingController();
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var searchController = TextEditingController();
+
     return BlocConsumer<NewsCubit, NewsStates>(
       listener: (context, state) {},
       builder: (context, state) {

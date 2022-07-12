@@ -16,19 +16,19 @@ class NewsCubit extends Cubit<NewsStates>
 
   List<BottomNavigationBarItem> bottomItems =
   [
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(
       icon: Icon(
         Icons.business,
       ),
       label: 'Business',
     ),
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(
       icon: Icon(
         Icons.sports,
       ),
       label: 'Sports',
     ),
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(
       icon: Icon(
         Icons.science,
       ),
@@ -38,18 +38,20 @@ class NewsCubit extends Cubit<NewsStates>
 
   List<Widget> screens =
   [
-    BusinessScreen(),
-    SportsScreen(),
-    ScienceScreen(),
+    const BusinessScreen(),
+    const SportsScreen(),
+    const ScienceScreen(),
   ];
 
   void changeBottomNavBar(int index)
   {
     currentIndex = index;
-    if(index == 1)
+    if(index == 1) {
       getSports();
-    if(index == 2)
+    }
+    if(index == 2) {
       getScience();
+    }
     emit(NewsBottomNavState());
   }
 
@@ -69,13 +71,13 @@ class NewsCubit extends Cubit<NewsStates>
       },
     ).then((value)
     {
-      //print(value.data['articles'][0]['title']);
+      //debugPrint(value.data['articles'][0]['title']);
       business = value.data['articles'];
-      print(business![0]['title']);
+      debugPrint(business![0]['title']);
 
       emit(NewsGetBusinessSuccessState());
     }).catchError((error){
-      print(error.toString());
+      debugPrint(error.toString());
       emit(NewsGetBusinessErrorState(error.toString()));
     });
   }
@@ -86,7 +88,7 @@ class NewsCubit extends Cubit<NewsStates>
   {
     emit(NewsGetSportsLoadingState());
 
-    if(sports!.length == 0)
+    if(sports!.isEmpty)
     {
       DioHelper.getData(
         url: 'v2/top-headlines',
@@ -98,13 +100,13 @@ class NewsCubit extends Cubit<NewsStates>
         },
       ).then((value)
       {
-        //print(value.data['articles'][0]['title']);
+        //debugPrint(value.data['articles'][0]['title']);
         sports = value.data['articles'];
-        print(sports![0]['title']);
+        debugPrint(sports![0]['title']);
 
         emit(NewsGetSportsSuccessState());
       }).catchError((error){
-        print(error.toString());
+        debugPrint(error.toString());
         emit(NewsGetSportsErrorState(error.toString()));
       });
     } else
@@ -119,7 +121,7 @@ class NewsCubit extends Cubit<NewsStates>
   {
     emit(NewsGetScienceLoadingState());
 
-    if(science!.length == 0)
+    if(science!.isEmpty)
     {
       DioHelper.getData(
         url: 'v2/top-headlines',
@@ -131,13 +133,13 @@ class NewsCubit extends Cubit<NewsStates>
         },
       ).then((value)
       {
-        //print(value.data['articles'][0]['title']);
+        //debugPrint(value.data['articles'][0]['title']);
         science = value.data['articles'];
-        print(science![0]['title']);
+        debugPrint(science![0]['title']);
 
         emit(NewsGetScienceSuccessState());
       }).catchError((error){
-        print(error.toString());
+        debugPrint(error.toString());
         emit(NewsGetScienceErrorState(error.toString()));
       });
     } else
@@ -156,18 +158,18 @@ class NewsCubit extends Cubit<NewsStates>
       url: 'v2/everything',
       query:
       {
-        'q':'$value',
+        'q':value,
         'apiKey':'65f7f556ec76449fa7dc7c0069f040ca',
       },
     ).then((value)
     {
-      //print(value.data['articles'][0]['title']);
+      //debugPrint(value.data['articles'][0]['title']);
       search = value.data['articles'];
-      print(search![0]['title']);
+      debugPrint(search![0]['title']);
 
       emit(NewsGetSearchSuccessState());
     }).catchError((error){
-      print(error.toString());
+      debugPrint(error.toString());
       emit(NewsGetSearchErrorState(error.toString()));
     });
   }

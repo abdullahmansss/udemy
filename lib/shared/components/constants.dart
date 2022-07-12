@@ -10,6 +10,7 @@
 
 // https://newsapi.org/v2/everything?q=tesla&apiKey=65f7f556ec76449fa7dc7c0069f040ca
 
+import 'package:flutter/foundation.dart';
 import 'package:udemy_flutter/modules/shop_app/login/shop_login_screen.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
@@ -24,7 +25,7 @@ void signOut(context)
     {
       navigateAndFinish(
         context,
-        ShopLoginScreen(),
+        const ShopLoginScreen(),
       );
     }
   });
@@ -32,7 +33,7 @@ void signOut(context)
 
 void printFullText(String text) {
   final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-  pattern.allMatches(text).forEach((match) => print(match.group(0)));
+  pattern.allMatches(text).forEach((match) => debugPrint(match.group(0)));
 }
 
 String? token = '';

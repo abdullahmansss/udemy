@@ -1,9 +1,10 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 class MessengerScreen extends StatelessWidget
 {
+  const MessengerScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context)
   {
@@ -14,7 +15,7 @@ class MessengerScreen extends StatelessWidget
         elevation: 0.0,
         titleSpacing: 20.0,
         title: Row(
-          children: [
+          children: const [
             CircleAvatar(
               radius: 20.0,
               backgroundImage: NetworkImage(
@@ -33,7 +34,7 @@ class MessengerScreen extends StatelessWidget
         ),
         actions: [
           IconButton(
-            icon: CircleAvatar(
+            icon: const CircleAvatar(
               radius: 15.0,
               backgroundColor: Colors.blue,
               child: Icon(
@@ -45,7 +46,7 @@ class MessengerScreen extends StatelessWidget
             onPressed: () {},
           ),
           IconButton(
-            icon: CircleAvatar(
+            icon: const CircleAvatar(
               radius: 15.0,
               backgroundColor: Colors.blue,
               child: Icon(
@@ -71,11 +72,11 @@ class MessengerScreen extends StatelessWidget
                   ),
                   color: Colors.grey[300],
                 ),
-                padding: EdgeInsets.all(
+                padding: const EdgeInsets.all(
                   5.0,
                 ),
                 child: Row(
-                  children: [
+                  children: const [
                     Icon(
                       Icons.search,
                     ),
@@ -88,28 +89,28 @@ class MessengerScreen extends StatelessWidget
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
-              Container(
+              SizedBox(
                 height: 100.0,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => buildStoryItem(),
-                  separatorBuilder: (context, index) => SizedBox(
+                  separatorBuilder: (context, index) => const SizedBox(
                     width: 20.0,
                   ),
                   itemCount: 5,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               ListView.separated(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) => buildChatItem(),
-                separatorBuilder: (context, index) => SizedBox(
+                separatorBuilder: (context, index) => const SizedBox(
                   height: 20.0,
                 ),
                 itemCount: 15,
@@ -132,14 +133,14 @@ class MessengerScreen extends StatelessWidget
         children: [
           Stack(
             alignment: AlignmentDirectional.bottomEnd,
-            children: [
+            children: const [
               CircleAvatar(
                 radius: 30.0,
                 backgroundImage: NetworkImage(
                     'https://avatars.githubusercontent.com/u/34492145?v=4'),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.only(
+                padding: EdgeInsetsDirectional.only(
                   bottom: 3.0,
                   end: 3.0,
                 ),
@@ -150,14 +151,14 @@ class MessengerScreen extends StatelessWidget
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 20.0,
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Abdullah Ahmed Abdullah Ahmed Abdullah Ahmed Abdullah Ahmed',
                   style: TextStyle(
                     fontSize: 16.0,
@@ -166,13 +167,13 @@ class MessengerScreen extends StatelessWidget
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5.0,
                 ),
                 Row(
                   children:
                   [
-                    Expanded(
+                    const Expanded(
                       child: Text(
                         'hello my name is abdullah ahmed hello my name is abdullah ahmed',
                         maxLines: 1,
@@ -186,13 +187,13 @@ class MessengerScreen extends StatelessWidget
                       child: Container(
                         width: 7.0,
                         height: 7.0,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.blue,
                           shape: BoxShape.circle,
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       '02:00 pm',
                     ),
                   ],
@@ -204,20 +205,20 @@ class MessengerScreen extends StatelessWidget
       );
 
   Widget buildStoryItem() =>
-      Container(
+      SizedBox(
         width: 60.0,
         child: Column(
           children: [
             Stack(
               alignment: AlignmentDirectional.bottomEnd,
-              children: [
+              children: const [
                 CircleAvatar(
                   radius: 30.0,
                   backgroundImage: NetworkImage(
                       'https://avatars.githubusercontent.com/u/34492145?v=4'),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.only(
+                  padding: EdgeInsetsDirectional.only(
                     bottom: 3.0,
                     end: 3.0,
                   ),
@@ -228,10 +229,10 @@ class MessengerScreen extends StatelessWidget
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 6.0,
             ),
-            Text(
+            const Text(
               'Abdullah Mansour Ali Mansour',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

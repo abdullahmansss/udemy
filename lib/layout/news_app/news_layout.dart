@@ -7,35 +7,37 @@ import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/cubit/cubit.dart';
 
 class NewsLayout extends StatelessWidget {
+  const NewsLayout({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewsCubit, NewsStates>(
       listener: (context, state) {},
-      builder: (context, state)
-      {
+      builder: (context, state) {
         var cubit = NewsCubit.get(context);
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(
+            title: const Text(
               'News App',
             ),
             actions: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                 ),
-                onPressed: ()
-                {
-                  navigateTo(context, SearchScreen(),);
+                onPressed: () {
+                  navigateTo(
+                    context,
+                    const SearchScreen(),
+                  );
                 },
               ),
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.brightness_4_outlined,
                 ),
-                onPressed: ()
-                {
+                onPressed: () {
                   AppCubit.get(context).changeAppMode();
                 },
               ),

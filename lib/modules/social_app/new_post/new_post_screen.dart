@@ -5,12 +5,13 @@ import 'package:udemy_flutter/layout/social_app/cubit/states.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
-class NewPostScreen extends StatelessWidget
-{
-  var textController = TextEditingController();
+class NewPostScreen extends StatelessWidget {
+  const NewPostScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var textController = TextEditingController();
+
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -20,23 +21,20 @@ class NewPostScreen extends StatelessWidget
             title: 'Create Post',
             actions: [
               defaultTextButton(
-                function: ()
-                {
+                function: () {
                   var now = DateTime.now();
 
-                  if (SocialCubit.get(context).postImage == null)
-                  {
+                  if (SocialCubit.get(context).postImage == null) {
                     SocialCubit.get(context).createPost(
                       dateTime: now.toString(),
                       text: textController.text,
                     );
-                  } else
-                    {
-                      SocialCubit.get(context).uploadPostImage(
-                        dateTime: now.toString(),
-                        text: textController.text,
-                      );
-                    }
+                  } else {
+                    SocialCubit.get(context).uploadPostImage(
+                      dateTime: now.toString(),
+                      text: textController.text,
+                    );
+                  }
                 },
                 text: 'Post',
               ),
@@ -46,14 +44,14 @@ class NewPostScreen extends StatelessWidget
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                if(state is SocialCreatePostLoadingState)
-                  LinearProgressIndicator(),
-                if(state is SocialCreatePostLoadingState)
-                  SizedBox(
-                  height: 10.0,
-                ),
+                if (state is SocialCreatePostLoadingState)
+                  const LinearProgressIndicator(),
+                if (state is SocialCreatePostLoadingState)
+                  const SizedBox(
+                    height: 10.0,
+                  ),
                 Row(
-                  children: [
+                  children: const [
                     CircleAvatar(
                       radius: 25.0,
                       backgroundImage: NetworkImage(
@@ -76,61 +74,62 @@ class NewPostScreen extends StatelessWidget
                 Expanded(
                   child: TextFormField(
                     controller: textController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'what is on your mind ...',
                       border: InputBorder.none,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
-                if(SocialCubit.get(context).postImage != null)
+                if (SocialCubit.get(context).postImage != null)
                   Stack(
-                  alignment: AlignmentDirectional.topEnd,
-                  children: [
-                    Container(
-                      height: 140.0,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0,),
-                        image: DecorationImage(
-                          image: FileImage(SocialCubit.get(context).postImage!),
-                          fit: BoxFit.cover,
+                    alignment: AlignmentDirectional.topEnd,
+                    children: [
+                      Container(
+                        height: 140.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            4.0,
+                          ),
+                          image: DecorationImage(
+                            image:
+                                FileImage(SocialCubit.get(context).postImage!),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      icon: CircleAvatar(
-                        radius: 20.0,
-                        child: Icon(
-                          Icons.close,
-                          size: 16.0,
+                      IconButton(
+                        icon: const CircleAvatar(
+                          radius: 20.0,
+                          child: Icon(
+                            Icons.close,
+                            size: 16.0,
+                          ),
                         ),
+                        onPressed: () {
+                          SocialCubit.get(context).removePostImage();
+                        },
                       ),
-                      onPressed: ()
-                      {
-                        SocialCubit.get(context).removePostImage();
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
+                    ],
+                  ),
+                const SizedBox(
                   height: 20.0,
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: TextButton(
-                        onPressed: ()
-                        {
+                        onPressed: () {
                           SocialCubit.get(context).getPostImage();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
-                              IconBroken.Image,
+                              IconBroken.kImage,
                             ),
                             SizedBox(
                               width: 5.0,
@@ -145,7 +144,7 @@ class NewPostScreen extends StatelessWidget
                     Expanded(
                       child: TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           '# tags',
                         ),
                       ),

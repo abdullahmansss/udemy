@@ -5,7 +5,7 @@ class WebViewScreen extends StatelessWidget
 {
   final String? url;
 
-  WebViewScreen(this.url);
+   const WebViewScreen(this.url, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context)

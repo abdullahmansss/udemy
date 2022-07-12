@@ -2,74 +2,75 @@ import 'package:flutter/material.dart';
 import 'package:udemy_flutter/models/user/user_model.dart';
 
 class UsersScreen extends StatelessWidget {
-  List<UserModel> users = [
-    UserModel(
-      id: 1,
-      name: 'Abdullah Mansour',
-      phone: '+201115342559',
-    ),
-    UserModel(
-      id: 2,
-      name: 'Osama Mansour',
-      phone: '+201117842559',
-    ),
-    UserModel(
-      id: 3,
-      name: 'Ahmed Ali',
-      phone: '+2087856136',
-    ),
-    UserModel(
-      id: 1,
-      name: 'Abdullah Mansour',
-      phone: '+201115342559',
-    ),
-    UserModel(
-      id: 2,
-      name: 'Osama Mansour',
-      phone: '+201117842559',
-    ),
-    UserModel(
-      id: 3,
-      name: 'Ahmed Ali',
-      phone: '+2087856136',
-    ),
-    UserModel(
-      id: 1,
-      name: 'Abdullah Mansour',
-      phone: '+201115342559',
-    ),
-    UserModel(
-      id: 2,
-      name: 'Osama Mansour',
-      phone: '+201117842559',
-    ),
-    UserModel(
-      id: 3,
-      name: 'Ahmed Ali',
-      phone: '+2087856136',
-    ),
-    UserModel(
-      id: 1,
-      name: 'Abdullah Mansour',
-      phone: '+201115342559',
-    ),
-    UserModel(
-      id: 2,
-      name: 'Osama Mansour',
-      phone: '+201117842559',
-    ),
-    UserModel(
-      id: 3,
-      name: 'Ahmed Ali',
-      phone: '+2087856136',
-    ),
-  ];
+  const UsersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<UserModel> users = [
+      UserModel(
+        id: 1,
+        name: 'Abdullah Mansour',
+        phone: '+201115342559',
+      ),
+      UserModel(
+        id: 2,
+        name: 'Osama Mansour',
+        phone: '+201117842559',
+      ),
+      UserModel(
+        id: 3,
+        name: 'Ahmed Ali',
+        phone: '+2087856136',
+      ),
+      UserModel(
+        id: 1,
+        name: 'Abdullah Mansour',
+        phone: '+201115342559',
+      ),
+      UserModel(
+        id: 2,
+        name: 'Osama Mansour',
+        phone: '+201117842559',
+      ),
+      UserModel(
+        id: 3,
+        name: 'Ahmed Ali',
+        phone: '+2087856136',
+      ),
+      UserModel(
+        id: 1,
+        name: 'Abdullah Mansour',
+        phone: '+201115342559',
+      ),
+      UserModel(
+        id: 2,
+        name: 'Osama Mansour',
+        phone: '+201117842559',
+      ),
+      UserModel(
+        id: 3,
+        name: 'Ahmed Ali',
+        phone: '+2087856136',
+      ),
+      UserModel(
+        id: 1,
+        name: 'Abdullah Mansour',
+        phone: '+201115342559',
+      ),
+      UserModel(
+        id: 2,
+        name: 'Osama Mansour',
+        phone: '+201117842559',
+      ),
+      UserModel(
+        id: 3,
+        name: 'Ahmed Ali',
+        phone: '+2087856136',
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Users',
         ),
       ),
@@ -98,13 +99,13 @@ class UsersScreen extends StatelessWidget {
               radius: 25.0,
               child: Text(
                 '${user.id}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20.0,
             ),
             Column(
@@ -112,15 +113,15 @@ class UsersScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${user.name}',
-                  style: TextStyle(
+                  user.name,
+                  style: const TextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  '${user.phone}',
-                  style: TextStyle(
+                  user.phone,
+                  style: const TextStyle(
                     color: Colors.grey,
                   ),
                 ),

@@ -12,6 +12,8 @@ import 'package:udemy_flutter/modules/counter_app/counter/cubit/states.dart';
 
 class CounterScreen extends StatelessWidget
 {
+  const CounterScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context)
   {
@@ -22,19 +24,19 @@ class CounterScreen extends StatelessWidget
         {
           if(state is CounterMinusState)
           {
-            print('minus state ${state.counter}');
+            debugPrint('minus state ${state.counter}');
           }
 
           if(state is CounterPlusState)
           {
-            print('plus state ${state.counter}');
+            debugPrint('plus state ${state.counter}');
           }
         },
         builder: (BuildContext context, CounterStates state)
         {
           return Scaffold(
             appBar: AppBar(
-              title: Text(
+              title: const Text(
                 'Counter',
               ),
             ),
@@ -47,7 +49,7 @@ class CounterScreen extends StatelessWidget
                     {
                       CounterCubit.get(context).minus();
                     },
-                    child: Text(
+                    child: const Text(
                       'MINUS',
                     ),
                   ),
@@ -57,7 +59,7 @@ class CounterScreen extends StatelessWidget
                     ),
                     child: Text(
                       '${CounterCubit.get(context).counter}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 50.0,
                         fontWeight: FontWeight.w900,
                       ),
@@ -68,7 +70,7 @@ class CounterScreen extends StatelessWidget
                     {
                       CounterCubit.get(context).plus();
                     },
-                    child: Text(
+                    child: const Text(
                       'PLUS',
                     ),
                   ),
