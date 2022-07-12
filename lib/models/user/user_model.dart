@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class UserModel {
   final int id;
@@ -6,8 +5,8 @@ class UserModel {
   final String phone;
 
   UserModel({
-    @required this.id,
-    @required this.phone,
-    @required this.name,
+    required this.id,
+    required this.phone,
+    required this.name,
   });
 }

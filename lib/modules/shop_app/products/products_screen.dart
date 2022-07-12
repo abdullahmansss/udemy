@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
@@ -10,15 +10,17 @@ import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/styles/colors.dart';
 
 class ProductsScreen extends StatelessWidget {
+  const ProductsScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
         if (state is ShopSuccessChangeFavoritesState) {
-          if (!state.model.status) {
+          if (!state.model!.status!) {
             showToast(
-              text: state.model.message,
-              state: ToastStates.ERROR,
+              text: state.model!.message!,
+              state: ToastStates.kERROR,
             );
           }
         }
@@ -27,9 +29,9 @@ class ProductsScreen extends StatelessWidget {
         return ConditionalBuilder(
           condition: ShopCubit.get(context).homeModel != null &&
               ShopCubit.get(context).categoriesModel != null,
-          builder: (context) => builderWidget(ShopCubit.get(context).homeModel,
-              ShopCubit.get(context).categoriesModel, context),
-          fallback: (context) => Center(
+          builder: (context) => builderWidget(ShopCubit.get(context).homeModel!,
+              ShopCubit.get(context).categoriesModel!, context),
+          fallback: (context) => const Center(
             child: CircularProgressIndicator(),
           ),
         );
@@ -40,7 +42,7 @@ class ProductsScreen extends StatelessWidget {
   Widget builderWidget(
           HomeModel model, CategoriesModel categoriesModel, context) =>
       SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,7 +50,7 @@ class ProductsScreen extends StatelessWidget {
               items: model.data.banners
                   .map(
                     (e) => Image(
-                      image: NetworkImage(e.image),
+                      image: NetworkImage(e.image!),
                       fit: BoxFit.cover,
                       width: double.infinity,
                     ),
@@ -62,13 +64,13 @@ class ProductsScreen extends StatelessWidget {
                 enableInfiniteScroll: true,
                 reverse: false,
                 autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(seconds: 1),
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(seconds: 1),
                 autoPlayCurve: Curves.fastOutSlowIn,
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Padding(
@@ -78,33 +80,33 @@ class ProductsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Categories',
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
-                  Container(
+                  SizedBox(
                     height: 100.0,
                     child: ListView.separated(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) =>
                           buildCategoryItem(categoriesModel.data.data[index]),
-                      separatorBuilder: (context, index) => SizedBox(
+                      separatorBuilder: (context, index) => const SizedBox(
                         width: 10.0,
                       ),
                       itemCount: categoriesModel.data.data.length,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
-                  Text(
+                  const Text(
                     'New Products',
                     style: TextStyle(
                       fontSize: 24.0,
@@ -114,14 +116,14 @@ class ProductsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Container(
               color: Colors.grey[300],
               child: GridView.count(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1.0,
@@ -141,7 +143,7 @@ class ProductsScreen extends StatelessWidget {
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Image(
-            image: NetworkImage(model.image),
+            image: NetworkImage(model.image!),
             height: 100.0,
             width: 100.0,
             fit: BoxFit.cover,
@@ -152,11 +154,11 @@ class ProductsScreen extends StatelessWidget {
             ),
             width: 100.0,
             child: Text(
-              model.name,
+              model.name!,
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),
@@ -173,17 +175,17 @@ class ProductsScreen extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 Image(
-                  image: NetworkImage(model.image),
+                  image: NetworkImage(model.image!),
                   width: double.infinity,
                   height: 200.0,
                 ),
                 if (model.discount != 0)
                   Container(
                     color: Colors.red,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 5.0,
                     ),
-                    child: Text(
+                    child: const Text(
                       'DISCOUNT',
                       style: TextStyle(
                         fontSize: 8.0,
@@ -199,10 +201,10 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.name,
+                    model.name!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
                       height: 1.3,
                     ),
@@ -211,36 +213,36 @@ class ProductsScreen extends StatelessWidget {
                     children: [
                       Text(
                         '${model.price.round()}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: defaultColor,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5.0,
                       ),
                       if (model.discount != 0)
                         Text(
                           '${model.oldPrice.round()}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 10.0,
                             color: Colors.grey,
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
                         onPressed: () {
                           ShopCubit.get(context).changeFavorites(model.id);
-                          print(model.id);
+                          debugPrint(model.id.toString());
                         },
                         icon: CircleAvatar(
                           radius: 15.0,
                           backgroundColor:
-                              ShopCubit.get(context).favorites[model.id]
+                              ShopCubit.get(context).favorites[model.id]!
                                   ? defaultColor
                                   : Colors.grey,
-                          child: Icon(
+                          child: const Icon(
                             Icons.favorite_border,
                             size: 14.0,
                             color: Colors.white,

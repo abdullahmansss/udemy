@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/models/shop_app/login_model.dart';
@@ -11,17 +10,17 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
 
   static ShopLoginCubit get(context) => BlocProvider.of(context);
 
-  ShopLoginModel loginModel;
+  ShopLoginModel? loginModel;
 
   void userLogin({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   })
   {
     emit(ShopLoginLoadingState());
 
     DioHelper.postData(
-      url: LOGIN,
+      url: kLOGIN,
       data:
       {
         'email': email,
@@ -29,12 +28,12 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       },
     ).then((value)
     {
-      print(value.data);
+      debugPrint(value.data);
       loginModel = ShopLoginModel.fromJson(value.data);
       emit(ShopLoginSuccessState(loginModel));
     }).catchError((error)
     {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(ShopLoginErrorState(error.toString()));
     });
   }

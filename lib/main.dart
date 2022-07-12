@@ -1,20 +1,12 @@
-import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:udemy_flutter/layout/news_app/cubit/cubit.dart';
-import 'package:udemy_flutter/layout/news_app/news_layout.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
-import 'package:udemy_flutter/layout/shop_app/shop_layout.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/social_app/social_layout.dart';
-import 'package:udemy_flutter/modules/shop_app/login/shop_login_screen.dart';
-import 'package:udemy_flutter/modules/shop_app/on_boarding/on_boarding_screen.dart';
 import 'package:udemy_flutter/modules/social_app/social_login/social_login_screen.dart';
-import 'package:udemy_flutter/shared/bloc_observer.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
 import 'package:udemy_flutter/shared/cubit/cubit.dart';
@@ -25,10 +17,10 @@ import 'package:udemy_flutter/shared/styles/themes.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async
 {
-  print('on background message');
-  print(message.data.toString());
+  debugPrint('on background message');
+  debugPrint(message.data.toString());
 
-  showToast(text: 'on background message', state: ToastStates.SUCCESS,);
+  showToast(text: 'on background message', state: ToastStates.kSUCCESS,);
 }
 
 void main() async
@@ -39,34 +31,34 @@ void main() async
   await Firebase.initializeApp();
   var token = await FirebaseMessaging.instance.getToken();
 
-  print(token);
+  debugPrint(token);
 
 
   // foreground fcm
   FirebaseMessaging.onMessage.listen((event)
   {
-    print('on message');
-    print(event.data.toString());
+    debugPrint('on message');
+    debugPrint(event.data.toString());
 
-    showToast(text: 'on message', state: ToastStates.SUCCESS,);
+    showToast(text: 'on message', state: ToastStates.kSUCCESS,);
   });
 
   // when click on notification to open app
   FirebaseMessaging.onMessageOpenedApp.listen((event)
   {
-    print('on message opened app');
-    print(event.data.toString());
-    showToast(text: 'on message opened app', state: ToastStates.SUCCESS,);
+    debugPrint('on message opened app');
+    debugPrint(event.data.toString());
+    showToast(text: 'on message opened app', state: ToastStates.kSUCCESS,);
   });
 
   // background fcm
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  Bloc.observer = MyBlocObserver();
+  // Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
 
-  bool isDark = CacheHelper.getData(key: 'isDark');
+  bool? isDark = CacheHelper.getData(key: 'isDark');
 
   Widget widget;
 
@@ -86,10 +78,10 @@ void main() async
 
   if(uId != null)
   {
-    widget = SocialLayout();
+    widget = const SocialLayout();
   } else
     {
-      widget = SocialLoginScreen();
+      widget = const SocialLoginScreen();
     }
 
   runApp(MyApp(
@@ -107,13 +99,13 @@ class MyApp extends StatelessWidget
 {
   // constructor
   // build
-  final bool isDark;
-  final Widget startWidget;
+  final bool? isDark;
+  final Widget? startWidget;
 
-  MyApp({
+   const MyApp({Key? key,
     this.isDark,
     this.startWidget,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context)
@@ -147,7 +139,7 @@ class MyApp extends StatelessWidget
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: ThemeMode.light,
-            home: SocialLayout(),
+            home: const SocialLayout(),
           );
         },
       ),

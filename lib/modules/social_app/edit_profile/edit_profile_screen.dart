@@ -1,30 +1,29 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/states.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  var nameController = TextEditingController();
-  var phoneController = TextEditingController();
-  var bioController = TextEditingController();
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var nameController = TextEditingController();
+    var phoneController = TextEditingController();
+    var bioController = TextEditingController();
+
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var userModel = SocialCubit.get(context).userModel;
+        var userModel = SocialCubit.get(context).userModel!;
         var profileImage = SocialCubit.get(context).profileImage;
         var coverImage = SocialCubit.get(context).coverImage;
 
-        nameController.text = userModel.name;
-        phoneController.text = userModel.phone;
-        bioController.text = userModel.bio;
+        nameController.text = userModel.name!;
+        phoneController.text = userModel.phone!;
+        bioController.text = userModel.bio!;
 
         return Scaffold(
           appBar: defaultAppBar(
@@ -40,28 +39,29 @@ class EditProfileScreen extends StatelessWidget {
                 },
                 text: 'Update',
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15.0,
               ),
             ],
-          ),
+          ) as PreferredSizeWidget?,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   if (state is SocialUserUpdateLoadingState)
-                    LinearProgressIndicator(),
+                    const LinearProgressIndicator(),
                   if (state is SocialUserUpdateLoadingState)
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
-                  Container(
+                  SizedBox(
                     height: 190.0,
                     child: Stack(
                       alignment: AlignmentDirectional.bottomCenter,
                       children: [
                         Align(
+                          alignment: AlignmentDirectional.topCenter,
                           child: Stack(
                             alignment: AlignmentDirectional.topEnd,
                             children: [
@@ -69,7 +69,7 @@ class EditProfileScreen extends StatelessWidget {
                                 height: 140.0,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(
                                       4.0,
                                     ),
@@ -78,20 +78,21 @@ class EditProfileScreen extends StatelessWidget {
                                     ),
                                   ),
                                   image: DecorationImage(
-                                    image: coverImage == null
-                                        ? NetworkImage(
-                                            '${userModel.cover}',
-                                          )
-                                        : FileImage(coverImage),
+                                    image: (coverImage == null
+                                            ? NetworkImage(
+                                                '${userModel.cover}',
+                                              )
+                                            : FileImage(coverImage))
+                                        as ImageProvider<Object>,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                               IconButton(
-                                icon: CircleAvatar(
+                                icon: const CircleAvatar(
                                   radius: 20.0,
                                   child: Icon(
-                                    IconBroken.Camera,
+                                    IconBroken.kCamera,
                                     size: 16.0,
                                   ),
                                 ),
@@ -101,7 +102,6 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          alignment: AlignmentDirectional.topCenter,
                         ),
                         Stack(
                           alignment: AlignmentDirectional.bottomEnd,
@@ -112,18 +112,19 @@ class EditProfileScreen extends StatelessWidget {
                                   Theme.of(context).scaffoldBackgroundColor,
                               child: CircleAvatar(
                                 radius: 60.0,
-                                backgroundImage: profileImage == null
-                                    ? NetworkImage(
-                                        '${userModel.image}',
-                                      )
-                                    : FileImage(profileImage),
+                                backgroundImage: (profileImage == null
+                                        ? NetworkImage(
+                                            '${userModel.image}',
+                                          )
+                                        : FileImage(profileImage))
+                                    as ImageProvider<Object>?,
                               ),
                             ),
                             IconButton(
-                              icon: CircleAvatar(
+                              icon: const CircleAvatar(
                                 radius: 20.0,
                                 child: Icon(
-                                  IconBroken.Camera,
+                                  IconBroken.kCamera,
                                   size: 16.0,
                                 ),
                               ),
@@ -136,7 +137,7 @@ class EditProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   if (SocialCubit.get(context).profileImage != null ||
@@ -158,15 +159,15 @@ class EditProfileScreen extends StatelessWidget {
                                   text: 'upload profile',
                                 ),
                                 if (state is SocialUserUpdateLoadingState)
-                                  SizedBox(
-                                  height: 5.0,
-                                ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
                                 if (state is SocialUserUpdateLoadingState)
-                                  LinearProgressIndicator(),
+                                  const LinearProgressIndicator(),
                               ],
                             ),
                           ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5.0,
                         ),
                         if (SocialCubit.get(context).coverImage != null)
@@ -174,8 +175,7 @@ class EditProfileScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 defaultButton(
-                                  function: ()
-                                  {
+                                  function: () {
                                     SocialCubit.get(context).uploadCoverImage(
                                       name: nameController.text,
                                       phone: phoneController.text,
@@ -185,11 +185,11 @@ class EditProfileScreen extends StatelessWidget {
                                   text: 'upload cover',
                                 ),
                                 if (state is SocialUserUpdateLoadingState)
-                                  SizedBox(
-                                  height: 5.0,
-                                ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
                                 if (state is SocialUserUpdateLoadingState)
-                                  LinearProgressIndicator(),
+                                  const LinearProgressIndicator(),
                               ],
                             ),
                           ),
@@ -197,7 +197,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                   if (SocialCubit.get(context).profileImage != null ||
                       SocialCubit.get(context).coverImage != null)
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
                   defaultFormField(
@@ -211,9 +211,9 @@ class EditProfileScreen extends StatelessWidget {
                       return null;
                     },
                     label: 'Name',
-                    prefix: IconBroken.User,
+                    prefix: IconBroken.kUser,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   defaultFormField(
@@ -227,9 +227,9 @@ class EditProfileScreen extends StatelessWidget {
                       return null;
                     },
                     label: 'Bio',
-                    prefix: IconBroken.Info_Circle,
+                    prefix: IconBroken.kInfoCircle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   defaultFormField(
@@ -243,7 +243,7 @@ class EditProfileScreen extends StatelessWidget {
                       return null;
                     },
                     label: 'Phone',
-                    prefix: IconBroken.Call,
+                    prefix: IconBroken.kCall,
                   ),
                 ],
               ),

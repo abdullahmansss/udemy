@@ -1,7 +1,6 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:udemy_flutter/layout/shop_app/shop_layout.dart';
 import 'package:udemy_flutter/modules/shop_app/login/cubit/cubit.dart';
 import 'package:udemy_flutter/modules/shop_app/login/cubit/states.dart';
@@ -10,44 +9,42 @@ import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
 import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 
-class ShopLoginScreen extends StatelessWidget
-{
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+class ShopLoginScreen extends StatelessWidget {
+  const ShopLoginScreen({Key? key}) : super(key: key);
+
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
+    var formKey = GlobalKey<FormState>();
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
+
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {
-          if (state is ShopLoginSuccessState)
-          {
-            if (state.loginModel.status)
-            {
-              print(state.loginModel.message);
-              print(state.loginModel.data.token);
+          if (state is ShopLoginSuccessState) {
+            if (state.loginModel!.status!) {
+              debugPrint(state.loginModel!.message);
+              debugPrint(state.loginModel!.data!.token);
 
               CacheHelper.saveData(
                 key: 'token',
-                value: state.loginModel.data.token,
-              ).then((value)
-              {
-                token = state.loginModel.data.token;
+                value: state.loginModel!.data!.token,
+              ).then((value) {
+                token = state.loginModel!.data!.token;
 
                 navigateAndFinish(
                   context,
-                  ShopLayout(),
+                  const ShopLayout(),
                 );
               });
             } else {
-              print(state.loginModel.message);
+              debugPrint(state.loginModel!.message);
 
               showToast(
-                text: state.loginModel.message,
-                state: ToastStates.ERROR,
+                text: state.loginModel!.message!,
+                state: ToastStates.kERROR,
               );
             }
           }
@@ -66,17 +63,19 @@ class ShopLoginScreen extends StatelessWidget
                       children: [
                         Text(
                           'LOGIN',
-                          style: Theme.of(context).textTheme.headline4.copyWith(
-                                color: Colors.black,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    color: Colors.black,
+                                  ),
                         ),
                         Text(
                           'Login now to browse our hot offers',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                color: Colors.grey,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Colors.grey,
+                                  ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         defaultFormField(
@@ -90,7 +89,7 @@ class ShopLoginScreen extends StatelessWidget
                           label: 'Email Address',
                           prefix: Icons.email_outlined,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
@@ -98,7 +97,7 @@ class ShopLoginScreen extends StatelessWidget
                           type: TextInputType.visiblePassword,
                           suffix: ShopLoginCubit.get(context).suffix,
                           onSubmit: (value) {
-                            if (formKey.currentState.validate()) {
+                            if (formKey.currentState!.validate()) {
                               ShopLoginCubit.get(context).userLogin(
                                 email: emailController.text,
                                 password: passwordController.text,
@@ -118,14 +117,14 @@ class ShopLoginScreen extends StatelessWidget
                           label: 'Password',
                           prefix: Icons.lock_outline,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         ConditionalBuilder(
                           condition: state is! ShopLoginLoadingState,
                           builder: (context) => defaultButton(
                             function: () {
-                              if (formKey.currentState.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 ShopLoginCubit.get(context).userLogin(
                                   email: emailController.text,
                                   password: passwordController.text,
@@ -136,22 +135,22 @@ class ShopLoginScreen extends StatelessWidget
                             isUpperCase: true,
                           ),
                           fallback: (context) =>
-                              Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Don\'t have an account?',
                             ),
                             defaultTextButton(
                               function: () {
                                 navigateTo(
                                   context,
-                                  ShopRegisterScreen(),
+                                  const ShopRegisterScreen(),
                                 );
                               },
                               text: 'register',

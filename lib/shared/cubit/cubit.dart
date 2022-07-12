@@ -15,9 +15,9 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
 
   List<Widget> screens = [
-    NewTasksScreen(),
-    DoneTasksScreen(),
-    ArchivedTasksScreen(),
+    const NewTasksScreen(),
+    const DoneTasksScreen(),
+    const ArchivedTasksScreen(),
   ];
 
   List<String> titles = [
@@ -31,7 +31,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppChangeBottomNavBarState());
   }
 
-  Database database;
+  late Database database;
   List<Map> newTasks = [];
   List<Map> doneTasks = [];
   List<Map> archivedTasks = [];
@@ -47,19 +47,19 @@ class AppCubit extends Cubit<AppStates> {
         // time String
         // status String
 
-        print('database created');
+        debugPrint('database created');
         database
             .execute(
                 'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)')
             .then((value) {
-          print('table created');
+          debugPrint('table created');
         }).catchError((error) {
-          print('Error When Creating Table ${error.toString()}');
+          debugPrint('Error When Creating Table ${error.toString()}');
         });
       },
       onOpen: (database) {
         getDataFromDatabase(database);
-        print('database opened');
+        debugPrint('database opened');
       },
     ).then((value) {
       database = value;
@@ -68,9 +68,9 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   insertToDatabase({
-    @required String title,
-    @required String time,
-    @required String date,
+    required String title,
+    required String time,
+    required String date,
   }) async {
     await database.transaction((txn) {
       txn
@@ -78,16 +78,16 @@ class AppCubit extends Cubit<AppStates> {
         'INSERT INTO tasks(title, date, time, status) VALUES("$title", "$date", "$time", "new")',
       )
           .then((value) {
-        print('$value inserted successfully');
+        debugPrint('$value inserted successfully');
         emit(AppInsertDatabaseState());
 
         getDataFromDatabase(database);
       }).catchError((error) {
-        print('Error When Inserting New Record ${error.toString()}');
+        debugPrint('Error When Inserting New Record ${error.toString()}');
       });
 
       return null;
-    });
+    } as Future<dynamic> Function(Transaction));
   }
 
   void getDataFromDatabase(database) {
@@ -99,12 +99,13 @@ class AppCubit extends Cubit<AppStates> {
 
     database.rawQuery('SELECT * FROM tasks').then((value) {
       value.forEach((element) {
-        if (element['status'] == 'new')
+        if (element['status'] == 'new') {
           newTasks.add(element);
-        else if (element['status'] == 'done')
+        } else if (element['status'] == 'done') {
           doneTasks.add(element);
-        else
+        } else {
           archivedTasks.add(element);
+        }
       });
 
       emit(AppGetDatabaseState());
@@ -112,12 +113,12 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void updateData({
-    @required String status,
-    @required int id,
+    required String status,
+    required int? id,
   }) async {
     database.rawUpdate(
       'UPDATE tasks SET status = ? WHERE id = ?',
-      ['$status', id],
+      [status, id],
     ).then((value) {
       getDataFromDatabase(database);
       emit(AppUpdateDatabaseState());
@@ -125,7 +126,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void deleteData({
-    @required int id,
+    required int? id,
   }) async {
     database.rawDelete('DELETE FROM tasks WHERE id = ?', [id]).then((value) {
       getDataFromDatabase(database);
@@ -137,8 +138,8 @@ class AppCubit extends Cubit<AppStates> {
   IconData fabIcon = Icons.edit;
 
   void changeBottomSheetState({
-    @required bool isShow,
-    @required IconData icon,
+    required bool isShow,
+    required IconData icon,
   }) {
     isBottomSheetShown = isShow;
     fabIcon = icon;
@@ -148,7 +149,7 @@ class AppCubit extends Cubit<AppStates> {
 
   bool isDark = false;
 
-  void changeAppMode({bool fromShared})
+  void changeAppMode({bool? fromShared})
   {
     if (fromShared != null)
     {

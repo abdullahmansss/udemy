@@ -1,37 +1,37 @@
 class SearchModel
 {
-  bool status;
-  Null message;
-  Data data;
+  bool? status;
+  String? message;
+  Data? data;
   
   SearchModel.fromJson(Map<String, dynamic> json)
   {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 }
 
 class Data {
-  int currentPage;
-  List<Product> data;
-  String firstPageUrl;
-  int from;
-  int lastPage;
-  String lastPageUrl;
-  Null nextPageUrl;
-  String path;
-  int perPage;
-  Null prevPageUrl;
-  int to;
-  int total;
+  int? currentPage;
+  late List<Product> data;
+  String? firstPageUrl;
+  int? from;
+  int? lastPage;
+  String? lastPageUrl;
+  String? nextPageUrl;
+  String? path;
+  int? perPage;
+  String? prevPageUrl;
+  int? to;
+  int? total;
 
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = new List<Product>();
+      data = <Product>[];
       json['data'].forEach((v) {
-        data.add(new Product.fromJson(v));
+        data.add(Product.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -48,13 +48,13 @@ class Data {
 }
 
 class Product {
-  int id;
+  int? id;
   dynamic price;
   dynamic oldPrice;
-  int discount;
-  String image;
-  String name;
-  String description;
+  int? discount;
+  String? image;
+  String? name;
+  String? description;
 
   Product(
       {this.id,
@@ -76,14 +76,14 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['price'] = this.price;
-    data['old_price'] = this.oldPrice;
-    data['discount'] = this.discount;
-    data['image'] = this.image;
-    data['name'] = this.name;
-    data['description'] = this.description;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['price'] = price;
+    data['old_price'] = oldPrice;
+    data['discount'] = discount;
+    data['image'] = image;
+    data['name'] = name;
+    data['description'] = description;
     return data;
   }
 }

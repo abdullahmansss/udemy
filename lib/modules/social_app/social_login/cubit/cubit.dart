@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/modules/social_app/social_login/cubit/states.dart';
@@ -10,8 +9,8 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
   static SocialLoginCubit get(context) => BlocProvider.of(context);
 
   void userLogin({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) {
     emit(SocialLoginLoadingState());
 
@@ -21,9 +20,9 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
           password: password,
         )
         .then((value) {
-          print(value.user.email);
-          print(value.user.uid);
-          emit(SocialLoginSuccessState(value.user.uid));
+          debugPrint(value.user!.email);
+          debugPrint(value.user!.uid);
+          emit(SocialLoginSuccessState(value.user!.uid));
     })
         .catchError((error)
     {

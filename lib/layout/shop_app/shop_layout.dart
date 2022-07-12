@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/states.dart';
-import 'package:udemy_flutter/modules/shop_app/login/shop_login_screen.dart';
 import 'package:udemy_flutter/modules/shop_app/search/search_screen.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
-import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 
 class ShopLayout extends StatelessWidget {
+  const ShopLayout({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
@@ -17,16 +17,16 @@ class ShopLayout extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(
+            title: const Text(
               'Salla',
             ),
             actions: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                 ),
                 onPressed: () {
-                  navigateTo(context, SearchScreen(),);
+                  navigateTo(context, const SearchScreen(),);
                 },
               ),
             ],
@@ -37,7 +37,7 @@ class ShopLayout extends StatelessWidget {
               cubit.changeBottom(index);
             },
             currentIndex: cubit.currentIndex,
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home,

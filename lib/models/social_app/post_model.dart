@@ -1,11 +1,11 @@
 class PostModel
 {
-  String name;
-  String uId;
-  String image;
-  String dateTime;
-  String text;
-  String postImage;
+  String? name;
+  String? uId;
+  String? image;
+  String? dateTime;
+  String? text;
+  String? postImage;
 
   PostModel({
     this.name,

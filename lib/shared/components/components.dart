@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
@@ -12,52 +12,52 @@ Widget defaultButton({
   Color background = Colors.blue,
   bool isUpperCase = true,
   double radius = 3.0,
-  @required Function function,
-  @required String text,
+  required Function function,
+  required String text,
 }) =>
     Container(
       width: width,
       height: 40.0,
-      child: MaterialButton(
-        onPressed: function,
-        child: Text(
-          isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
           radius,
         ),
         color: background,
       ),
+      child: MaterialButton(
+        onPressed: function as void Function()?,
+        child: Text(
+          isUpperCase ? text.toUpperCase() : text,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
 
 Widget defaultTextButton({
-  @required Function function,
-  @required String text,
+  required Function function,
+  required String text,
 }) =>
     TextButton(
-      onPressed: function,
+      onPressed: function as void Function()?,
       child: Text(
         text.toUpperCase(),
       ),
     );
 
 Widget defaultFormField({
-  @required TextEditingController controller,
-  @required TextInputType type,
-  Function onSubmit,
-  Function onChange,
-  Function onTap,
+  required TextEditingController controller,
+  required TextInputType type,
+  Function? onSubmit,
+  Function? onChange,
+  Function? onTap,
   bool isPassword = false,
-  @required Function validate,
-  @required String label,
-  @required IconData prefix,
-  IconData suffix,
-  Function suffixPressed,
+  required Function validate,
+  required String label,
+  required IconData prefix,
+  IconData? suffix,
+  Function? suffixPressed,
   bool isClickable = true,
 }) =>
     TextFormField(
@@ -65,10 +65,10 @@ Widget defaultFormField({
       keyboardType: type,
       obscureText: isPassword,
       enabled: isClickable,
-      onFieldSubmitted: onSubmit,
-      onChanged: onChange,
-      onTap: onTap,
-      validator: validate,
+      onFieldSubmitted: onSubmit as void Function(String)?,
+      onChanged: onChange as void Function(String)?,
+      onTap: onTap as void Function()?,
+      validator: validate as String? Function(String?)?,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(
@@ -76,28 +76,28 @@ Widget defaultFormField({
         ),
         suffixIcon: suffix != null
             ? IconButton(
-                onPressed: suffixPressed,
+                onPressed: suffixPressed as void Function()?,
                 icon: Icon(
                   suffix,
                 ),
               )
             : null,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
       ),
     );
 
 Widget defaultAppBar({
-  @required BuildContext context,
-  String title,
-  List<Widget> actions,
+  required BuildContext context,
+  required String title,
+  List<Widget>? actions,
 }) => AppBar(
   leading: IconButton(
     onPressed: ()
     {
       Navigator.pop(context);
     },
-    icon: Icon(
-      IconBroken.Arrow___Left_2,
+    icon: const Icon(
+      IconBroken.kArrowLeft2,
     ),
   ),
   titleSpacing: 5.0,
@@ -119,7 +119,7 @@ Widget buildTaskItem(Map model, context) => Dismissible(
                 '${model['time']}',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20.0,
             ),
             Expanded(
@@ -129,21 +129,21 @@ Widget buildTaskItem(Map model, context) => Dismissible(
                 children: [
                   Text(
                     '${model['title']}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     '${model['date']}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20.0,
             ),
             IconButton(
@@ -153,7 +153,7 @@ Widget buildTaskItem(Map model, context) => Dismissible(
                   id: model['id'],
                 );
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.check_box,
                 color: Colors.green,
               ),
@@ -165,7 +165,7 @@ Widget buildTaskItem(Map model, context) => Dismissible(
                   id: model['id'],
                 );
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.archive,
                 color: Colors.black45,
               ),
@@ -181,10 +181,10 @@ Widget buildTaskItem(Map model, context) => Dismissible(
     );
 
 Widget tasksBuilder({
-  @required List<Map> tasks,
+  required List<Map> tasks,
 }) =>
     ConditionalBuilder(
-      condition: tasks.length > 0,
+      condition: tasks.isNotEmpty,
       builder: (context) => ListView.separated(
         itemBuilder: (context, index) {
           return buildTaskItem(tasks[index], context);
@@ -195,7 +195,7 @@ Widget tasksBuilder({
       fallback: (context) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Icon(
               Icons.menu,
               size: 100.0,
@@ -249,11 +249,11 @@ Widget buildArticleItem(article, context) => InkWell(
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20.0,
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 120.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,7 +269,7 @@ Widget buildArticleItem(article, context) => InkWell(
                     ),
                     Text(
                       '${article['publishedAt']}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                       ),
                     ),
@@ -277,7 +277,7 @@ Widget buildArticleItem(article, context) => InkWell(
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 15.0,
             ),
           ],
@@ -288,13 +288,13 @@ Widget buildArticleItem(article, context) => InkWell(
 Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
       condition: list.length > 0,
       builder: (context) => ListView.separated(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => buildArticleItem(list[index], context),
         separatorBuilder: (context, index) => myDivider(),
         itemCount: 10,
       ),
       fallback: (context) =>
-          isSearch ? Container() : Center(child: CircularProgressIndicator()),
+          isSearch ? Container() : const Center(child: CircularProgressIndicator()),
     );
 
 void navigateTo(context, widget) => Navigator.push(
@@ -319,8 +319,8 @@ void navigateAndFinish(
     );
 
 void showToast({
-  @required String text,
-  @required ToastStates state,
+  required String text,
+  required ToastStates state,
 }) =>
     Fluttertoast.showToast(
       msg: text,
@@ -333,19 +333,19 @@ void showToast({
     );
 
 // enum
-enum ToastStates { SUCCESS, ERROR, WARNING }
+enum ToastStates { kSUCCESS, kERROR, kWARNING }
 
-Color chooseToastColor(ToastStates state) {
-  Color color;
+Color? chooseToastColor(ToastStates state) {
+  Color? color;
 
   switch (state) {
-    case ToastStates.SUCCESS:
+    case ToastStates.kSUCCESS:
       color = Colors.green;
       break;
-    case ToastStates.ERROR:
+    case ToastStates.kERROR:
       color = Colors.red;
       break;
-    case ToastStates.WARNING:
+    case ToastStates.kWARNING:
       color = Colors.amber;
       break;
   }
@@ -360,7 +360,7 @@ Widget buildListProduct(
 }) =>
     Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
+      child: SizedBox(
         height: 120.0,
         child: Row(
           children: [
@@ -375,10 +375,10 @@ Widget buildListProduct(
                 if (model.discount != 0 && isOldPrice)
                   Container(
                     color: Colors.red,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 5.0,
                     ),
-                    child: Text(
+                    child: const Text(
                       'DISCOUNT',
                       style: TextStyle(
                         fontSize: 8.0,
@@ -388,7 +388,7 @@ Widget buildListProduct(
                   ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               width: 20.0,
             ),
             Expanded(
@@ -399,34 +399,34 @@ Widget buildListProduct(
                     model.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
                       height: 1.3,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
                       Text(
                         model.price.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: defaultColor,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5.0,
                       ),
                       if (model.discount != 0 && isOldPrice)
                         Text(
                           model.oldPrice.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 10.0,
                             color: Colors.grey,
                             decoration: TextDecoration.lineThrough,
                           ),
                         ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
                         onPressed: () {
                           ShopCubit.get(context).changeFavorites(model.id);
@@ -434,10 +434,10 @@ Widget buildListProduct(
                         icon: CircleAvatar(
                           radius: 15.0,
                           backgroundColor:
-                              ShopCubit.get(context).favorites[model.id]
+                              ShopCubit.get(context).favorites[model.id]!
                                   ? defaultColor
                                   : Colors.grey,
-                          child: Icon(
+                          child: const Icon(
                             Icons.favorite_border,
                             size: 14.0,
                             color: Colors.white,

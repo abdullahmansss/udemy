@@ -1,61 +1,55 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/shop_app/shop_layout.dart';
-import 'package:udemy_flutter/modules/shop_app/login/cubit/cubit.dart';
 import 'package:udemy_flutter/modules/shop_app/register/cubit/cubit.dart';
 import 'package:udemy_flutter/modules/shop_app/register/cubit/states.dart';
 import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
 import 'package:udemy_flutter/shared/network/local/cache_helper.dart';
 
-class ShopRegisterScreen extends StatelessWidget
-{
-  var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
+class ShopRegisterScreen extends StatelessWidget {
+  const ShopRegisterScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
+    var formKey = GlobalKey<FormState>();
+    var nameController = TextEditingController();
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
+    var phoneController = TextEditingController();
+
     return BlocProvider(
       create: (BuildContext context) => ShopRegisterCubit(),
       child: BlocConsumer<ShopRegisterCubit, ShopRegisterStates>(
-        listener: (context, state)
-        {
-          if (state is ShopRegisterSuccessState)
-          {
-            if (state.loginModel.status)
-            {
-              print(state.loginModel.message);
-              print(state.loginModel.data.token);
+        listener: (context, state) {
+          if (state is ShopRegisterSuccessState) {
+            if (state.loginModel!.status!) {
+              debugPrint(state.loginModel!.message);
+              debugPrint(state.loginModel!.data!.token);
 
               CacheHelper.saveData(
                 key: 'token',
-                value: state.loginModel.data.token,
-              ).then((value)
-              {
-                token = state.loginModel.data.token;
+                value: state.loginModel!.data!.token,
+              ).then((value) {
+                token = state.loginModel!.data!.token;
 
                 navigateAndFinish(
                   context,
-                  ShopLayout(),
+                  const ShopLayout(),
                 );
               });
             } else {
-              print(state.loginModel.message);
+              debugPrint(state.loginModel!.message);
 
               showToast(
-                text: state.loginModel.message,
-                state: ToastStates.ERROR,
+                text: state.loginModel!.message!,
+                state: ToastStates.kERROR,
               );
             }
           }
         },
-        builder: (context, state)
-        {
+        builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
             body: Center(
@@ -69,17 +63,19 @@ class ShopRegisterScreen extends StatelessWidget
                       children: [
                         Text(
                           'REGISTER',
-                          style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.black,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    color: Colors.black,
+                                  ),
                         ),
                         Text(
                           'Register now to browse our hot offers',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: Colors.grey,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Colors.grey,
+                                  ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         defaultFormField(
@@ -93,7 +89,7 @@ class ShopRegisterScreen extends StatelessWidget
                           label: 'User Name',
                           prefix: Icons.person,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
@@ -107,17 +103,14 @@ class ShopRegisterScreen extends StatelessWidget
                           label: 'Email Address',
                           prefix: Icons.email_outlined,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
                           controller: passwordController,
                           type: TextInputType.visiblePassword,
                           suffix: ShopRegisterCubit.get(context).suffix,
-                          onSubmit: (value)
-                          {
-
-                          },
+                          onSubmit: (value) {},
                           isPassword: ShopRegisterCubit.get(context).isPassword,
                           suffixPressed: () {
                             ShopRegisterCubit.get(context)
@@ -131,7 +124,7 @@ class ShopRegisterScreen extends StatelessWidget
                           label: 'Password',
                           prefix: Icons.lock_outline,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
                         defaultFormField(
@@ -145,15 +138,14 @@ class ShopRegisterScreen extends StatelessWidget
                           label: 'Phone',
                           prefix: Icons.phone,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         ConditionalBuilder(
                           condition: state is! ShopRegisterLoadingState,
                           builder: (context) => defaultButton(
                             function: () {
-                              if (formKey.currentState.validate())
-                              {
+                              if (formKey.currentState!.validate()) {
                                 ShopRegisterCubit.get(context).userRegister(
                                   name: nameController.text,
                                   email: emailController.text,
@@ -166,7 +158,7 @@ class ShopRegisterScreen extends StatelessWidget
                             isUpperCase: true,
                           ),
                           fallback: (context) =>
-                              Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                         ),
                       ],
                     ),

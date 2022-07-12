@@ -21,7 +21,7 @@ class ShopChangeFavoritesState extends ShopStates {}
 
 class ShopSuccessChangeFavoritesState extends ShopStates
 {
-  final ChangeFavoritesModel model;
+  final ChangeFavoritesModel? model;
 
   ShopSuccessChangeFavoritesState(this.model);
 }
@@ -38,7 +38,7 @@ class ShopLoadingUserDataState extends ShopStates {}
 
 class ShopSuccessUserDataState extends ShopStates
 {
-  final ShopLoginModel loginModel;
+  final ShopLoginModel? loginModel;
 
   ShopSuccessUserDataState(this.loginModel);
 }
@@ -49,7 +49,7 @@ class ShopLoadingUpdateUserState extends ShopStates {}
 
 class ShopSuccessUpdateUserState extends ShopStates
 {
-  final ShopLoginModel loginModel;
+  final ShopLoginModel? loginModel;
 
   ShopSuccessUpdateUserState(this.loginModel);
 }

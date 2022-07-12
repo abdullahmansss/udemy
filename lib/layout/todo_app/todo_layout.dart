@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -15,21 +15,21 @@ import 'package:udemy_flutter/shared/cubit/states.dart';
 // 7. delete from database
 
 class HomeLayout extends StatelessWidget {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  var formKey = GlobalKey<FormState>();
-  var titleController = TextEditingController();
-  var timeController = TextEditingController();
-  var dateController = TextEditingController();
+  const HomeLayout({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+    var formKey = GlobalKey<FormState>();
+    var titleController = TextEditingController();
+    var timeController = TextEditingController();
+    var dateController = TextEditingController();
+
     return BlocProvider(
       create: (BuildContext context) => AppCubit()..createDatabase(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
-          if(state is AppInsertDatabaseState)
-          {
+          if (state is AppInsertDatabaseState) {
             Navigator.pop(context);
           }
         },
@@ -46,27 +46,25 @@ class HomeLayout extends StatelessWidget {
             body: ConditionalBuilder(
               condition: state is! AppGetDatabaseLoadingState,
               builder: (context) => cubit.screens[cubit.currentIndex],
-              fallback: (context) => Center(child: CircularProgressIndicator()),
+              fallback: (context) =>
+                  const Center(child: CircularProgressIndicator()),
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                if (cubit.isBottomSheetShown)
-                {
-                  if (formKey.currentState.validate())
-                  {
+                if (cubit.isBottomSheetShown) {
+                  if (formKey.currentState!.validate()) {
                     cubit.insertToDatabase(
                       title: titleController.text,
                       time: timeController.text,
                       date: dateController.text,
                     );
                   }
-                } else
-                  {
-                  scaffoldKey.currentState
+                } else {
+                  scaffoldKey.currentState!
                       .showBottomSheet(
                         (context) => Container(
                           color: Colors.white,
-                          padding: EdgeInsets.all(
+                          padding: const EdgeInsets.all(
                             20.0,
                           ),
                           child: Form(
@@ -87,7 +85,7 @@ class HomeLayout extends StatelessWidget {
                                   label: 'Task Title',
                                   prefix: Icons.title,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15.0,
                                 ),
                                 defaultFormField(
@@ -99,8 +97,8 @@ class HomeLayout extends StatelessWidget {
                                       initialTime: TimeOfDay.now(),
                                     ).then((value) {
                                       timeController.text =
-                                          value.format(context).toString();
-                                      print(value.format(context));
+                                          value!.format(context).toString();
+                                      debugPrint(value.format(context));
                                     });
                                   },
                                   validate: (String value) {
@@ -113,7 +111,7 @@ class HomeLayout extends StatelessWidget {
                                   label: 'Task Time',
                                   prefix: Icons.watch_later_outlined,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15.0,
                                 ),
                                 defaultFormField(
@@ -127,7 +125,7 @@ class HomeLayout extends StatelessWidget {
                                       lastDate: DateTime.parse('2021-05-03'),
                                     ).then((value) {
                                       dateController.text =
-                                          DateFormat.yMMMd().format(value);
+                                          DateFormat.yMMMd().format(value!);
                                     });
                                   },
                                   validate: (String value) {
@@ -147,8 +145,7 @@ class HomeLayout extends StatelessWidget {
                         elevation: 20.0,
                       )
                       .closed
-                      .then((value)
-                  {
+                      .then((value) {
                     cubit.changeBottomSheetState(
                       isShow: false,
                       icon: Icons.edit,
@@ -171,7 +168,7 @@ class HomeLayout extends StatelessWidget {
               onTap: (index) {
                 cubit.changeIndex(index);
               },
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.menu,

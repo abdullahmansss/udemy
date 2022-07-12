@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/social_app/cubit/cubit.dart';
@@ -9,20 +9,18 @@ import 'package:udemy_flutter/shared/styles/colors.dart';
 import 'package:udemy_flutter/shared/styles/icon_broken.dart';
 
 class ChatDetailsScreen extends StatelessWidget {
-  SocialUserModel userModel;
+  final SocialUserModel? userModel;
 
-  ChatDetailsScreen({
-    this.userModel,
-  });
-
-  var messageController = TextEditingController();
+  const ChatDetailsScreen({Key? key, this.userModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var messageController = TextEditingController();
+
     return Builder(
       builder: (BuildContext context) {
         SocialCubit.get(context).getMessages(
-          receiverId: userModel.uId,
+          receiverId: userModel!.uId,
         );
 
         return BlocConsumer<SocialCubit, SocialStates>(
@@ -36,37 +34,39 @@ class ChatDetailsScreen extends StatelessWidget {
                     CircleAvatar(
                       radius: 20.0,
                       backgroundImage: NetworkImage(
-                        userModel.image,
+                        userModel!.image!,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15.0,
                     ),
                     Text(
-                      userModel.name,
+                      userModel!.name!,
                     ),
                   ],
                 ),
               ),
               body: ConditionalBuilder(
-                condition: SocialCubit.get(context).messages.length > 0,
+                condition: SocialCubit.get(context).messages.isNotEmpty,
                 builder: (context) => Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       Expanded(
                         child: ListView.separated(
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index)
-                          {
-                            var message = SocialCubit.get(context).messages[index];
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var message =
+                                SocialCubit.get(context).messages[index];
 
-                            if(SocialCubit.get(context).userModel.uId == message.senderId)
+                            if (SocialCubit.get(context).userModel!.uId ==
+                                message.senderId) {
                               return buildMyMessage(message);
+                            }
 
                             return buildMessage(message);
                           },
-                          separatorBuilder: (context, index) => SizedBox(
+                          separatorBuilder: (context, index) => const SizedBox(
                             height: 15.0,
                           ),
                           itemCount: SocialCubit.get(context).messages.length,
@@ -75,7 +75,7 @@ class ChatDetailsScreen extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.grey[300],
+                            color: Colors.grey[300]!,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(
@@ -92,7 +92,7 @@ class ChatDetailsScreen extends StatelessWidget {
                                 ),
                                 child: TextFormField(
                                   controller: messageController,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: 'type your message here ...',
                                   ),
@@ -105,14 +105,14 @@ class ChatDetailsScreen extends StatelessWidget {
                               child: MaterialButton(
                                 onPressed: () {
                                   SocialCubit.get(context).sendMessage(
-                                    receiverId: userModel.uId,
+                                    receiverId: userModel!.uId,
                                     dateTime: DateTime.now().toString(),
                                     text: messageController.text,
                                   );
                                 },
                                 minWidth: 1.0,
-                                child: Icon(
-                                  IconBroken.Send,
+                                child: const Icon(
+                                  IconBroken.kSend,
                                   size: 16.0,
                                   color: Colors.white,
                                 ),
@@ -124,7 +124,7 @@ class ChatDetailsScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                fallback: (context) => Center(
+                fallback: (context) => const Center(
                   child: CircularProgressIndicator(),
                 ),
               ),
@@ -140,7 +140,7 @@ class ChatDetailsScreen extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.grey[300],
-            borderRadius: BorderRadiusDirectional.only(
+            borderRadius: const BorderRadiusDirectional.only(
               bottomEnd: Radius.circular(
                 10.0,
               ),
@@ -152,12 +152,12 @@ class ChatDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 5.0,
             horizontal: 10.0,
           ),
           child: Text(
-            model.text,
+            model.text!,
           ),
         ),
       );
@@ -169,7 +169,7 @@ class ChatDetailsScreen extends StatelessWidget {
             color: defaultColor.withOpacity(
               .2,
             ),
-            borderRadius: BorderRadiusDirectional.only(
+            borderRadius: const BorderRadiusDirectional.only(
               bottomStart: Radius.circular(
                 10.0,
               ),
@@ -181,12 +181,12 @@ class ChatDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 5.0,
             horizontal: 10.0,
           ),
           child: Text(
-            model.text,
+            model.text!,
           ),
         ),
       );

@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy_flutter/layout/shop_app/cubit/cubit.dart';
@@ -7,21 +7,24 @@ import 'package:udemy_flutter/shared/components/components.dart';
 import 'package:udemy_flutter/shared/components/constants.dart';
 
 class SettingsScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var phoneController = TextEditingController();
+  const SettingsScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    var formKey = GlobalKey<FormState>();
+    var nameController = TextEditingController();
+    var emailController = TextEditingController();
+    var phoneController = TextEditingController();
+
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var model = ShopCubit.get(context).userModel;
+        var model = ShopCubit.get(context).userModel!;
 
-        nameController.text = model.data.name;
-        emailController.text = model.data.email;
-        phoneController.text = model.data.phone;
+        nameController.text = model.data!.name!;
+        emailController.text = model.data!.email!;
+        phoneController.text = model.data!.phone!;
 
         return ConditionalBuilder(
           condition: ShopCubit.get(context).userModel != null,
@@ -33,8 +36,8 @@ class SettingsScreen extends StatelessWidget {
                 children:
                 [
                   if(state is ShopLoadingUpdateUserState)
-                  LinearProgressIndicator(),
-                  SizedBox(
+                  const LinearProgressIndicator(),
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultFormField(
@@ -50,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
                     label: 'Name',
                     prefix: Icons.person,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultFormField(
@@ -66,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
                     label: 'Email Address',
                     prefix: Icons.email,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultFormField(
@@ -82,13 +85,13 @@ class SettingsScreen extends StatelessWidget {
                     label: 'Phone',
                     prefix: Icons.phone,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
                     function: ()
                     {
-                      if(formKey.currentState.validate())
+                      if(formKey.currentState!.validate())
                       {
                         ShopCubit.get(context).updateUserData(
                           name: nameController.text,
@@ -99,7 +102,7 @@ class SettingsScreen extends StatelessWidget {
                     },
                     text: 'update',
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
@@ -112,7 +115,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-          fallback: (context) => Center(child: CircularProgressIndicator()),
+          fallback: (context) => const Center(child: CircularProgressIndicator()),
         );
       },
     );
