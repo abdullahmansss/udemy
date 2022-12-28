@@ -5,8 +5,8 @@ Widget defaultButton({
   Color background = Colors.blue,
   bool isUpperCase = true,
   double radius = 3.0,
-  @required Function function,
-  @required String text,
+  required VoidCallback function,
+  required String text,
 }) =>
     Container(
       width: width,
